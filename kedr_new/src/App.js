@@ -49,7 +49,7 @@ function App() {
       </div>
       <div className={style.main}>
       <Header2></Header2>
-      {/* <MapCedars></MapCedars> */}
+      <MapCedars></MapCedars>
       </div>
       <div className={style.main}>
       <Footer ></Footer>
