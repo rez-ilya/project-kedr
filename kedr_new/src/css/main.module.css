@@ -1,0 +1,33 @@
+.main{
+    max-width: 2000px;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    min-height: max-content;
+    /* border: 2px solid greenyellow; */
+}
+
+.helpcircle {
+    position: fixed;
+    right: 2vw;
+    bottom: 2vw;
+    width: clamp(20px, 4vw, 80px);
+    aspect-ratio: 1 / 1;
+    background-color: white;
+    border-radius: 50%;
+    border: 0.2vw solid black;
+    cursor: pointer;  
+  }
+
+  .helpcircle:hover {
+    transform: scale(1.05);
+  }
+
+  .map{
+    border: 1px  solid #000;
+    width: 90%;
+    margin: 1% auto;
+    height: 50vh;
+  }

@@ -1,0 +1,25 @@
+.header{
+    display:flex;
+    background-color: blanchedalmond;
+    flex-direction: row;
+    /* border: 2px solid red; */
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header p{
+    font-size: min(40px, calc(8px + 10 * ((100vw - 320px) / 1024)));
+    font-weight: 400;
+    /* border: 2px solid blue; */
+    margin-right: 4vw;
+}
+
+.header h3{
+    font-weight: 900;
+    max-height: min-content;
+    min-width: max-content;
+    margin-left: 4vw;
+    margin-right: 4vw;
+    /* border: 2px solid green; */
+    font-size: min( 45px, calc(14px + 28 * ((100vw - 320px) / 1024)));
+}

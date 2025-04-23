@@ -1,0 +1,135 @@
+.container{
+    width: 100%;
+    font-size: min( 45px, calc(12px + 28 * ((100vw - 320px) / 1024)));
+    max-width: 2000px;
+    margin-top: 14%;
+    margin-bottom: 7%;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    /* border: 2px solid magenta; */
+}
+
+.LeftBlock{
+    margin-left: 2vw;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    width: 30%;
+    /* border: 2px solid red; */
+}
+
+.RightBlock{
+    /* border: 2px solid blueviolet; */
+    width: 60%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.CountReg{
+    text-align: center;
+    /* border: 2px solid blue; */
+    margin-top: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.CounterTrees{
+    text-align: center;
+    /* border: 2px solid brown; */
+    margin-top: 4vh;
+    font-family: 'Arial', sans-serif;
+}
+
+.title{
+    margin: 4vh;
+    /* border: 2px solid yellow; */
+    font-size: min( 70px, calc(22px + 38 * ((100vw - 320px) / 1024)));
+    font-family: 'Arial', sans-serif;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.memoryOf{
+    /* border: 2px solid seagreen; */
+    margin-top: 3vh;
+    text-align: center;
+    font-size: min(40px, calc(10px + 8 * ((100vw - 320px) / 1024)));
+    font-family: 'Arial', sans-serif;
+}
+
+.button{
+    margin-top: 1vh;
+    border-color: black;
+    width: 80%;
+    height: 95px;
+    background: white;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    align-items: center;
+    font-size: min( 30px, calc(11px + 17 * ((100vw - 320px) / 1024)));
+}
+
+@media (max-width: 990px) {
+    .container{
+        margin-top: 15%;
+        flex-wrap: wrap-reverse;
+    }
+    .LeftBlock{
+        margin: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .button{
+        margin-top: 5%;
+        min-width: max-content;
+        font-size: min(30px, calc(15px + 17 * ((100vw - 320px) / 1024)));
+        max-width: 35vw;
+        max-height: max-content;
+        padding: 3%;
+    }
+    
+    .RightBlock{
+        text-align: center;
+        width: 100%;
+    }
+    
+    .CounterTrees{
+        margin-top: 20px;
+    }
+
+    .CountReg {
+        margin: 0;
+    }
+    
+    .memoryOf{
+        margin: 4%;
+    }
+
+    .title{
+        margin: 1vw;
+    }
+}
+
+@media (max-width: 431px){
+    .title{
+        margin-top: 7vw;
+        margin-bottom: 5vw;
+        max-width: 70vw;
+        font-size: 8vw;
+    }
+
+    .container{
+        margin: 0;
+    }
+
+    .memoryOf{
+        margin: 4vw 0;
+    }
+
+    .LeftBlock{
+        margin-top: 3vw;
+    }
+}
