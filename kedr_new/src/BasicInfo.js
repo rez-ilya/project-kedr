@@ -8,20 +8,23 @@ const BasicInfo = (props) => {
                 С нами уже зарегистрировано
                 </p>
                 <div className={style.CounterTrees}>
-                3785 деревьев
+                    <p>3785</p>
+                 <p>кедров</p>
                 </div>
             </main>
             <main className={style.RightBlock}>
-                <p className={style.title}>
-                Томск - столица кедра
-                </p>
-                <button type="submit" className={style.button}
-                onClick={props.openRegKedr}>
-                    Зарегистрировать кедр
-                </button>
-                <p className={style.memoryOf}>
-                Дерево, как символ вечной памяти о Великой Победе
-                </p>
+                <div>
+                    <p className={style.title}>
+                    Томск - столица кедра
+                    </p>
+                    <button type="submit" className={style.button}
+                    onClick={props.openRegKedr}>
+                        Зарегистрировать кедр
+                    </button>
+                    <p className={style.memoryOf}>
+                    Дерево, как символ вечной памяти о Великой Победе
+                    </p>
+                </div>
             </main>
         </div>
     )

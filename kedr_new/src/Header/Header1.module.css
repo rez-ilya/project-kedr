@@ -1,20 +1,23 @@
 .header {
-    position: fixed; /* фиксируем */
+    background-color: #9FBC4E;
+    display: flex;
+    position: fixed !important;
     top: 0;
     left: 50%;
+    height: 16vh;
     transform: translateX(-50%);
     width: 100%;
-    z-index: 100; /* чтобы была над всем */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* тень вниз */
+    z-index: 999 !important;
     max-width: 2000px;
+    min-height: max-content;
 }
 
 .header div{
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    /* border: 1px solid #000; */
     height: max-content;
-    padding: 3vh;
+    padding: 6vh 6vh 3.5vh;
     position: relative;
 }
 
@@ -30,12 +33,21 @@
 }
 
 .button {
-    font-size: min(40px, calc(11px + 8 * ((100vw - 320px) / 1024)));
-    width: max-content;
-    padding: 1.5%;
-    background: #D9D9D9;
-    border: none;
+    /* display: flex;
+    align-items: center;
+    justify-content: center; */
+    font-family: 'Merriweather';
+    height: 6.3vh;
+    font-size: min(40px, calc(5px + 13 * ((100vw - 320px) / 1024)));
+    width: 19.5vw;
+    border: 0.26vw solid white;
     cursor: pointer;
+    background-color: rgba(28, 28, 28, 0);
+    color: #F1F2EB;
+}
+
+button p{
+    margin: 0;
 }
 
 .button:hover {
@@ -47,11 +59,16 @@
 }
 
 .button:nth-child(2){
-    margin-left: 30vw;
-    background-color: white;
+    background-color: #F1F2EB;
     margin-left: auto;
     margin-right: 2vw;
+    width: 39vw;
+    color: black;
+    border: 0.13vw solid black;
 }
+/* @media (max-width: 700px){
+    height: 16vh;
+} */
 
 @media (max-width: 431px){
     .button{

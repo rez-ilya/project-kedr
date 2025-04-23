@@ -10,8 +10,9 @@ import LogForm from "./Forms/LogForm";
 import RegForm from "./Forms/RegForm";
 import unDeathForm from "./Forms/unDeathForm";
 import HelpInfo from "./HelpIfo";
-import Map from "./Map";
+// import Map from "./Map";
 import RegKedr from "./RegKedr";
+import MapCedars from './MapCedrs';
 
 function App() {
 
@@ -41,16 +42,14 @@ function App() {
         closePopUp={() => setShowPopUpImmortal(false)}/>}
         {ShowRegKedr && <RegKedr closeRegKedr={() => setShowRegKedr(false)}/>}
         <BasicInfo openRegKedr={() => setShowRegKedr(true)}/>
-        <footer>
-          <button type="submit" className={style.helpcircle} onClick={() => setShowPopUpHelp(true)}/>
-          {ShowPopUpHelp && <PopUp
-          obj={HelpInfo}
-          closePopUp={() => setShowPopUpHelp(false)}/>}
-        </footer>
+        <button type="submit" className={style.helpcircle} onClick={() => setShowPopUpHelp(true)}>?</button>
+        {ShowPopUpHelp && <PopUp
+        obj={HelpInfo}
+        closePopUp={() => setShowPopUpHelp(false)}/>}
       </div>
       <div className={style.main}>
       <Header2></Header2>
-      <Map className={style.map}></Map>
+      {/* <MapCedars></MapCedars> */}
       </div>
       <div className={style.main}>
       <Footer ></Footer>

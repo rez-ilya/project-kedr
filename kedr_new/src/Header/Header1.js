@@ -9,17 +9,17 @@ class Header1 extends React.Component {
                 <div>
                 <button type="button"
                 className={style.button}>
-                    Почта
+                    почта@pochta.ru
                 </button>
                 <button type="button" 
                 className={style.button}
                 onClick={this.props.openPopUpImmortal}>
-                    Войти через портал "Бессмертный полк"
+                    Войти через портал “Бессмертный полк”
                 </button>
                 <button type="button"
                 className={style.button} 
                 onClick={this.props.openPopUpLog}>
-                    вход/регистрация
+                    Вход/Регистрация
                 </button>
                 <FiMenu className={style.burger_button}
                 onClick={this.props.toggleMenu}/>

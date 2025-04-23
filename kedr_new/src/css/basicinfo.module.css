@@ -1,74 +1,101 @@
+
+
 .container{
     width: 100%;
-    font-size: min( 45px, calc(12px + 28 * ((100vw - 320px) / 1024)));
+    font-size: min(45px, calc(12px + 28 * ((100vw - 320px) / 1024)));
     max-width: 2000px;
-    margin-top: 14%;
     margin-bottom: 7%;
     display: flex;
-    justify-content:space-between;
-    align-items: center;
+    justify-content: space-between;
+    /* align-items: center; */
     flex-wrap: wrap;
-    /* border: 2px solid magenta; */
+    /* /* border: 2px solid magenta; */
 }
 
 .LeftBlock{
-    margin-left: 2vw;
+    align-items: center;
+    margin-left: 3.6vw;
+    margin-top: 20vh;
+    margin-bottom: 23.8vh;
     display: flex;
     flex-direction: column;
     text-align: left;
-    width: 30%;
-    /* border: 2px solid red; */
+    width: 35%;
+    background-color: rgba(241, 242, 235, 0.7);
+    border-radius: 45px;
 }
 
 .RightBlock{
-    /* border: 2px solid blueviolet; */
-    width: 60%;
-    display: flex;
     align-items: center;
+    /* border: 2px solid blueviolet; */
+    width: 53%;
+    margin-right: 6vh;
+}
+
+.RightBlock div{
+    display: flex;
     flex-direction: column;
+    gap: 7.3vh;
+    width: 37vw;
+    margin: auto;
+    margin-top: 13vh;
+    align-items: center;
 }
 
 .CountReg{
-    text-align: center;
-    /* border: 2px solid blue; */
+    font-size: min( 45px, calc(12px + 28 * ((100vw - 320px) / 1024)));
+    max-width: min-content;
+    text-align: left;
     margin-top: 20px;
-    font-family: 'Arial', sans-serif;
+    margin-bottom: 0;
 }
 
 .CounterTrees{
+    display: flex;
+    flex-direction: row;
     text-align: center;
-    /* border: 2px solid brown; */
-    margin-top: 4vh;
-    font-family: 'Arial', sans-serif;
+    margin: 2vh 0;
+    padding-bottom: 3.5vh;
+    font-size: min(70px, calc(20px + 28 * ((100vw - 320px) / 1024)));
+}
+
+.CounterTrees p{
+    margin: 0;
+}
+
+.CounterTrees p:first-child{
+    letter-spacing: 0.06em;
+    margin-right: 1vw;
+    font-weight: 900;
+    color: rgba(111, 139, 65, 1);
 }
 
 .title{
-    margin: 4vh;
+    margin: 0;
     /* border: 2px solid yellow; */
-    font-size: min( 70px, calc(22px + 38 * ((100vw - 320px) / 1024)));
-    font-family: 'Arial', sans-serif;
+    font-size: min(60px, calc(22px + 30 * ((100vw - 320px) / 1024)));
     text-align: left;
+    font-weight: 700;
     text-transform: uppercase;
 }
 
 .memoryOf{
+    margin: 0;
     /* border: 2px solid seagreen; */
-    margin-top: 3vh;
-    text-align: center;
-    font-size: min(40px, calc(10px + 8 * ((100vw - 320px) / 1024)));
-    font-family: 'Arial', sans-serif;
+    text-align: left;
+    font-size: min(43px, calc(15px + 20 * ((100vw - 320px) / 1024)));
 }
 
 .button{
-    margin-top: 1vh;
-    border-color: black;
-    width: 80%;
-    height: 95px;
-    background: white;
+    font-family: 'Merriweather';
+    padding: 2.7vh;
+    border: 0.13vw solid black;
+    width: 100%;
+    /* height: 95px; */
+    background-color: rgba(28, 28, 28, 0);
     cursor: pointer;
-    font-family: 'Arial', sans-serif;
     align-items: center;
-    font-size: min( 30px, calc(11px + 17 * ((100vw - 320px) / 1024)));
+    font-size: min(30px, calc(11px + 17 * ((100vw - 320px) / 1024)));
 }
 
 @media (max-width: 990px) {

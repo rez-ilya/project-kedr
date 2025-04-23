@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from django.conf import settings
+from django.conf.urls.static import static
 
 from trees.views import TreesAPIList, TreesAPIDetails, TreesAPICoordinates
 from users.views import CreateUserView
@@ -29,3 +31,5 @@ urlpatterns = [
     path('api/v1/user/register/', CreateUserView.as_view(), name='register'),#регистрация пользователя
     path('api/v1/auth/', include('rest_framework.urls')),#+ login/ или  logout/  вход и выход из учетки
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

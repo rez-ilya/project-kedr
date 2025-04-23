@@ -1,4 +1,11 @@
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
 .main{
+    margin: 0;
+    padding: 0;
     max-width: 2000px;
     padding: 0;
     width: 100%;
@@ -6,19 +13,58 @@
     flex-direction: column;
     margin: 0 auto;
     min-height: max-content;
+    font-family: 'Merriweather';
     /* border: 2px solid greenyellow; */
 }
 
+.main:first-child {
+  position: relative;
+  top: 16vh;
+  display: flex;
+  background-color: #f8f8f2; /* основной фон */
+}
+
+/* Псевдоэлемент с картинкой */
+.main:first-child::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 43.5%;
+  height: 100%;
+  background-image: url('main_page_img.jpg');
+  background-size: 238%;
+  background-position: bottom;
+  border-bottom-right-radius: 30% 50%; /* эффект как на макете */
+  z-index: 0; /* чтобы был под контентом */
+  overflow: hidden;
+}
+
+/* Обертка для контента внутри блока */
+.main > * {
+  position: relative;
+  z-index: 1; /* контент поверх картинки */
+}
+
+.main:nth-child(2){
+  margin-top: 16vh;
+}
+
+
 .helpcircle {
-    position: fixed;
-    right: 2vw;
-    bottom: 2vw;
-    width: clamp(20px, 4vw, 80px);
-    aspect-ratio: 1 / 1;
-    background-color: white;
-    border-radius: 50%;
-    border: 0.2vw solid black;
-    cursor: pointer;  
+  position: fixed;
+  right: 6vh;
+  bottom: 6vh;
+  width: clamp(20px, 4vw, 80px);
+  aspect-ratio: 1 / 1;
+  background-color: white;
+  border-radius: 50%;
+  border: 0.36vw solid rgba(111, 139, 65, 1);
+  cursor: pointer;
+  font-size: 2.6vw;
+  font-family: "Inter";
+  font-weight: 700;
+  color: rgba(111, 139, 65, 1);
   }
 
   .helpcircle:hover {
