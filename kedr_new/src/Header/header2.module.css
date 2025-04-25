@@ -1,25 +1,29 @@
 .header{
-    display:flex;
-    background-color: blanchedalmond;
+    display: flex;
+    background-color: rgba(101, 140, 84, 1);
     flex-direction: row;
-    /* border: 2px solid red; */
     align-items: center;
     justify-content: space-between;
 }
 
-.header p{
-    font-size: min(40px, calc(8px + 10 * ((100vw - 320px) / 1024)));
+.title{
+    font-size: min(50px, calc(17px + 24 * ((100vw - 320px) / 1024)));
     font-weight: 400;
-    /* border: 2px solid blue; */
-    margin-right: 4vw;
+    margin: auto;
+    color: rgba(241, 243, 235, 1);
+    max-width: 20vw;
+    padding-right: 4vw;
 }
 
-.header h3{
-    font-weight: 900;
-    max-height: min-content;
-    min-width: max-content;
-    margin-left: 4vw;
-    margin-right: 4vw;
-    /* border: 2px solid green; */
-    font-size: min( 45px, calc(14px + 28 * ((100vw - 320px) / 1024)));
+
+
+.text{
+    font-weight: 400;
+    min-height: 14.3vh;
+    font-size: min( 45px, calc(13px + 21 * ((100vw - 320px) / 1024)));
+    color: rgba(241, 243, 235, 1);
+    margin-right: 6vh;
+    margin-top: 7.6vh;
+    margin-bottom: 7.6vh;
+    max-width: 50vw;
 }

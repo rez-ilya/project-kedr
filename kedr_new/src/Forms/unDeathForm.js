@@ -1,18 +1,18 @@
-import style from "../css/logform.module.css"
+import style from "../css/undeath.module.css"
 const unDeathForm = (props) => {
         return(
             <div className={style.container}>
                 <header>
                     <p>
-                    Если у вы уже зарегистрированы на сайте “Бессмертный полк”, то вы можете войти по номеру телефона и ФИО
+                    Если у Вас уже есть аккаунт на сайте “Бессмертный полк”, то Вы можете не проходить регистрацию на нашем сайте, а войти по номеру телефона, который привязан к этому аккаунту
                     </p>
                 </header>
                 <form className={style.form}>
-                    <label htmlFor="login">Номер телефона</label>
-                    <input placeholder="Введите номер..." id="login"
+                    <label className={style.lable} htmlFor="login">Номер телефона</label>
+                    <input placeholder="+7 (ххх) ххх хх-хх" id="login"
                     className={style.input}/>
-                    <label htmlFor="full_name">ФИО</label>
-                    <input placeholder="Введите ФИО..." id="full_name"
+                    <label className={style.lable} htmlFor="full_name">ФИО</label>
+                    <input placeholder="Иванов Иван Иванович" id="full_name"
                     className={style.input}/>
                 </form>
                 <footer className={style.footer}>

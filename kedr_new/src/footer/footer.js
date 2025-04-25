@@ -4,7 +4,7 @@ import style from "./footer.module.css"
 const Footer = () => {
     return(
     <div className={style.container}>
-        <header className={style.header}>Партнёры</header>
+        <header className={style.header}>Наши <span>зелёные</span> партнёры</header>
         <div className={style.dividerBar} />
       
         <main className={style.main}>

@@ -19,14 +19,14 @@
   
 
   /* Шапка */
-  header {
+  .head_info {
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   
   /* Кнопка "Вернуться на главную" */
-  header button {
+  .head_info button {
     background-color: #ddd;
     border: none;
     padding: 1vh 2vw;
@@ -35,14 +35,14 @@
   }
   
   /* ФИО */
-  header p {
+  .head_info p {
     background-color: #ddd;
     padding: 1vh 2vw;
     margin: 0;
   }
   
   /* Навигация (шаги) */
-  nav {
+  .navigation {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -50,21 +50,20 @@
     margin-bottom: 2vh;
   }
   
-  main h2 {
+  .map_con h2 {
     text-align: center;
     margin-bottom: 1vh;
     font-size: 1.2rem;
   }
   
   .map{
-    border: 1px  solid #000;
     width: 90%;
     margin: 1% auto;
-    height: 50vh;
+    height: 51vh;
   }
 
   /* Футер с кнопкой */
-  footer {
+  .footer_reg {
     display: flex;
     flex-direction: row;
     margin: auto;
@@ -73,7 +72,7 @@
     margin-top: 2vh;
   }
   
-  footer button {
+  .footer_reg button {
     background-color: #d9d9d9;
     padding: 1vh 3vw;
     border: none;
@@ -82,7 +81,7 @@
     cursor: pointer;
   }
 
-  footer button:nth-child(2){
+  .footer_reg button:nth-child(2){
     margin-left: 15px;
   }
   
@@ -121,7 +120,7 @@
     background-color: black;
   }
   
-  form{
+  .reg_kedr{
     font-size: 20px;
     margin: auto;
     display: flex;
@@ -130,15 +129,15 @@
     justify-content: space-around;
   }
 
-  form label:not(:first-child){
+  .reg_kedr label:not(:first-child){
     margin-top: 20px;
     margin-bottom: 10px;
   }
 
-  form label:first-child{
+  .reg_kedr label:first-child{
     margin-bottom: 10px;
   }
 
-  form textarea{
+  .reg_kedr textarea{
     max-width: 100%;
   }

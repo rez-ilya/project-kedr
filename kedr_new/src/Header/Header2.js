@@ -3,8 +3,12 @@ import style from "./header2.module.css"
 const Header2 = () => {
     return(
         <div className={style.header}>
-            <h3>Почему это важно?</h3>
-            <p>Текст почему важно сажать деревья</p>
+            <div className={style.title}>
+            Почему это важно?
+            </div>
+            <div className={style.text}>
+            Посадка дерева — это действие, которое соединяет прошлое, настоящее и будущее.
+            </div>
         </div>
     )
 }

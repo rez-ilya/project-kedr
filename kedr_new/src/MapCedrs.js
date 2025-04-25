@@ -2,12 +2,18 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useEffect, useState } from 'react';
+import style from "./css/mapcedrs.module.css"
 
-// Можно создать кастомный иконку дерева:
+//Rастомная иконка дерева:
 const treeIcon = new L.Icon({
-  iconUrl: '/tree-icon.png', // заменишь на свою иконку
+  iconUrl: '/tree-icon.png',
   iconSize: [30, 50],
 });
+
+const tomskBounds = [
+  [56.4847 - 1.8, 84.9482 - 3.0], // юго-западная точка
+  [56.4847 + 1.8, 84.9482 + 3.0]  // северо-восточная точка
+];
 
 const MapCedars = () => {
   const [cedars, setCedars] = useState([]);
@@ -15,11 +21,11 @@ const MapCedars = () => {
   useEffect(() => {
     fetch('http://localhost:8000/api/v1/trees/')
     .then(res => {
-        console.log(res); // Проверьте статус ответа
+        console.log(res); //статус ответа
         return res.json();
     })
     .then(data => {
-        console.log('Данные с сервера:', data); // Что приходит на самом деле?
+        console.log('Данные с сервера:', data);
         setCedars(data);
     })
       .catch(err => console.error('Ошибка загрузки кедров:', err));
@@ -27,9 +33,14 @@ const MapCedars = () => {
 
   return (
     <MapContainer
-      center={[56.5, 84.97]} // Центр Томска
+    center={[56.5, 84.97]} // центр карты
       zoom={13}
-      style={{ height: '70vh', width: '100%' }}
+      minZoom={6}
+      maxZoom={18}
+      scrollWheelZoom={true}
+      className={style.mapcon}
+      maxBounds={tomskBounds}
+      maxBoundsViscosity={1.0} // 1.0 = нельзя выйти вообще
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

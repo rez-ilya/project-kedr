@@ -11,10 +11,10 @@
 /* content wrapper */
 .content {
   background-color: #dcdcdc; /* Светло-серый фон как на макете */
-  border-radius: 10px;
+  border-radius: 24px;
   padding: 30px 20px;
   width: 90%;
-  max-width: 400px;
+  max-width: 500px;
   max-height: 90%;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
   position: relative;
@@ -28,9 +28,9 @@ display: none;               /* Chrome, Safari, Opera */
 }
 
 .close {
-  font-size: 26px;
+  font-size: 50px;
   cursor: pointer;
-  color: black;
+  color: rgb(255, 255, 255);
 }
 
 .close:hover {
@@ -41,6 +41,25 @@ display: none;               /* Chrome, Safari, Opera */
 /* иконка закрытия */
 .header {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 20px;
+  right: 20px;
+}
+
+.helpPopUp{
+  content: "";
+  position: absolute;
+  background-image: url('../images/tree-icon2.png');
+  height: 40vh;
+  background-repeat: no-repeat; /* Запрет дублирования */
+  background-size: auto; /* Сохраняет пропорции */
+  background-position: left bottom; /* Позиция в углу */
+  z-index: -1; /* Помещаем под основной контент */
+}
+
+.HelpText{
+  text-align: center;
+}
+
+.UnDeathPopUp{
+  background-color: rgba(101, 140, 84, 1);
 }

@@ -7,14 +7,20 @@
   }
   
   .header {
-    font-size: min( 45px, calc(14px + 28 * ((100vw - 320px) / 1024)));
+    font-size: min( 45px, calc(13px + 21 * ((100vw - 320px) / 1024)));
+    font-weight: 700;
     text-align: center;
     font-weight: bold;
     margin-bottom: 20px;
     margin-left: auto;
     margin-right: auto;
+    gap: 1vw;
   }
   
+  .header span{
+    color: rgba(111, 139, 65, 1);
+  }
+
   .dividerBar {
     width: 100%;
     height: 60px;
