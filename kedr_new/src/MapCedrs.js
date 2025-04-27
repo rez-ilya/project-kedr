@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMapEvent } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import { useEffect, useState } from 'react';
@@ -15,7 +15,16 @@ const tomskBounds = [
   [56.4847 + 1.8, 84.9482 + 3.0]  // северо-восточная точка
 ];
 
-const MapCedars = () => {
+function ClickHandler({ onMapClick }) {
+  useMapEvent('click', (e) => {
+    if (onMapClick) {
+      onMapClick([e.latlng.lat, e.latlng.lng]);
+    }
+  });
+  return null;
+}
+
+const MapCedars = ({ onMapClick }) => {
   const [cedars, setCedars] = useState([]);
 
   useEffect(() => {
@@ -45,6 +54,7 @@ const MapCedars = () => {
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
+      {onMapClick && <ClickHandler onMapClick={onMapClick} />}
       {cedars.map((cedar) => (
         <Marker
           key={cedar.id}

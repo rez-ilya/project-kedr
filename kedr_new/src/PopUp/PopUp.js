@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./popup.module.css";
-import { IoCloseOutline } from "react-icons/io5";
 
 class PopUp extends React.Component{
 
@@ -9,8 +8,9 @@ class PopUp extends React.Component{
             <div className={style.overlay} onClick={this.handleOverlayClick}>
                 <div className={`${style.content} ${this.props.contentClass ? style[this.props.contentClass] : ''}`}>
                     <header className={style.header}>
-                        <IoCloseOutline className={style.close}
-                        onClick={this.props.closePopUp}></IoCloseOutline>
+                        <img src='/close-icon.png' alt="закрыть"
+                        className={style.close}
+                        onClick={this.props.closePopUp}/>
                     </header>
                     <main className={style[this.props.object]}><this.props.obj/></main>
                 </div>

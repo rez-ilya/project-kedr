@@ -1,12 +1,10 @@
 /* logform.module.css или regform.module.css */
 
 .container {
-    margin-top: -17px;
-    width: 100%;
-    max-width: 400px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 8%;
   }
   
   .header {

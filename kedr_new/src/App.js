@@ -36,7 +36,8 @@ function App() {
         openPopUpLog={() => setShowPopUpAuth(true)}/>
         {ShowPopUpAuth && <PopUp 
         obj={getFormComponent}
-        closePopUp={() => setShowPopUpAuth(false)}/>}
+        closePopUp={() => setShowPopUpAuth(false)}
+        contentClass="LogPopUp"/>}
         {ShowPopUpImmortal && <PopUp
         obj={unDeathForm}
         closePopUp={() => setShowPopUpImmortal(false)}

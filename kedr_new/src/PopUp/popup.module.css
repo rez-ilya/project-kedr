@@ -12,7 +12,7 @@
 .content {
   background-color: #dcdcdc; /* Светло-серый фон как на макете */
   border-radius: 24px;
-  padding: 30px 20px;
+  /* padding: 30px 20px; */
   width: 90%;
   max-width: 500px;
   max-height: 90%;
@@ -28,7 +28,7 @@ display: none;               /* Chrome, Safari, Opera */
 }
 
 .close {
-  font-size: 50px;
+  width: 46px;
   cursor: pointer;
   color: rgb(255, 255, 255);
 }
@@ -45,15 +45,33 @@ display: none;               /* Chrome, Safari, Opera */
   right: 20px;
 }
 
-.helpPopUp{
+.helpPopUp {
   content: "";
   position: absolute;
   background-image: url('../images/tree-icon2.png');
   height: 40vh;
-  background-repeat: no-repeat; /* Запрет дублирования */
-  background-size: auto; /* Сохраняет пропорции */
-  background-position: left bottom; /* Позиция в углу */
-  z-index: -1; /* Помещаем под основной контент */
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: left bottom;
+  z-index: -1;
+  padding: 5%;
+}
+
+.helpPopUp::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 99px;
+  height: 196px;
+  background-image: url('../images/tree-icon2.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: right bottom;
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none;
+  transform: scaleX(-1);
 }
 
 .HelpText{
@@ -62,4 +80,8 @@ display: none;               /* Chrome, Safari, Opera */
 
 .UnDeathPopUp{
   background-color: rgba(101, 140, 84, 1);
+}
+
+.LogPopUp{
+  max-width: 35%;
 }

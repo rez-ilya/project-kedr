@@ -11,7 +11,7 @@ const unDeathForm = (props) => {
                     <label className={style.lable} htmlFor="login">Номер телефона</label>
                     <input placeholder="+7 (ххх) ххх хх-хх" id="login"
                     className={style.input}/>
-                    <label className={style.lable} htmlFor="full_name">ФИО</label>
+                    <label className={style.lable2} htmlFor="full_name">ФИО</label>
                     <input placeholder="Иванов Иван Иванович" id="full_name"
                     className={style.input}/>
                 </form>

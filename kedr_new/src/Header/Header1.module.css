@@ -12,13 +12,17 @@
     min-height: max-content;
 }
 
-.header div{
+.header > div{
+    box-sizing: border-box; /* padding входит в ширину */
     width: 100%;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
+    gap: 2vw;
     height: max-content;
     padding: 6vh 6vh 3.5vh;
-    position: relative;
+    position: absolute;
+    align-items: center;
 }
 
 .burger_button{
@@ -46,10 +50,6 @@
     color: #F1F2EB;
 }
 
-button p{
-    margin: 0;
-}
-
 .button:hover {
     transform: scale(1.05);
   }
@@ -66,6 +66,68 @@ button p{
     color: black;
     border: 0.13vw solid black;
 }
+
+.userContainer {
+    position: relative;
+    display: inline-block;
+}
+
+.userInfo {
+    font-family: 'Merriweather';
+    background: none;
+    border: none;
+    font-size: min(40px, calc(5px + 13 * ((100vw - 320px) / 1024)));
+    color: #F1F2EB;
+    padding-left: 2%;
+    white-space: nowrap;
+    overflow: hidden;
+    min-width: max-content;
+    cursor: pointer;
+}
+
+.logoutPopup {
+    position: absolute !important;
+    left: 0;
+    top: 100%;
+    margin-top: 8px;
+    min-width: 180px;
+    background: #fff;
+    border: 1.5px solid #9FBC4E;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    z-index: 1000;
+    padding: 8px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.logoutPopup::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 24px;
+    border-width: 0 8px 8px 8px;
+    border-style: solid;
+    border-color: transparent transparent #9FBC4E transparent;
+}
+
+.logoutButton {
+    font-family: 'Merriweather';
+    background: none;
+    color: #222;
+    border: none;
+    padding: 10px 20px;
+    text-align: left;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.logoutButton:hover {
+    background: #f3f7e7;
+}
+
 /* @media (max-width: 700px){
     height: 16vh;
 } */
