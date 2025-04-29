@@ -4,11 +4,16 @@ import L from 'leaflet';
 import { useEffect, useState } from 'react';
 import style from "../css/mapcedrs.module.css"
 import '../css/popup_leaflet.css';
-import CustomPopupContent from './CustomPopupContent';
+import CustomPopupContent from './PopUp/CustomPopupContent';
 
-//Rастомная иконка дерева:
-const treeIcon = new L.Icon({
+//Кастомные иконки деревьев:
+const defaultTreeIcon = new L.Icon({
   iconUrl: '/tree-icon.png',
+  iconSize: [30, 50],
+});
+
+const userTreeIcon = new L.Icon({
+  iconUrl: '/tree-icon-red.png', // Убедитесь, что у вас есть такая иконка
   iconSize: [30, 50],
 });
 
@@ -28,30 +33,44 @@ function ClickHandler({ onMapClick }) {
 
 const MapCedars = ({ onMapClick }) => {
   const [cedars, setCedars] = useState([]);
+  const [currentUserId, setCurrentUserId] = useState(null);
 
   useEffect(() => {
+    // Получаем информацию о текущем пользователе
+    const token = localStorage.getItem("token");
+    if (token) {
+      fetch("http://localhost:8000/api/v1/djoser-auth/users/me/", {
+        headers: {
+          "Authorization": `Token ${token}`,
+        },
+      })
+      .then(res => res.json())
+      .then(data => {
+        setCurrentUserId(data.id);
+      })
+      .catch(err => console.error('Ошибка загрузки данных пользователя:', err));
+    }
+
+    // Получаем список кедров
     fetch('http://localhost:8000/api/v1/trees/')
-    .then(res => {
-        console.log(res); //статус ответа
-        return res.json();
-    })
+    .then(res => res.json())
     .then(data => {
-        console.log('Данные с сервера:', data);
-        setCedars(data);
+      console.log('Данные с сервера:', data);
+      setCedars(data);
     })
-      .catch(err => console.error('Ошибка загрузки кедров:', err));
+    .catch(err => console.error('Ошибка загрузки кедров:', err));
   }, []);
 
   return (
     <MapContainer
-    center={[56.5, 84.97]} // центр карты
+      center={[56.5, 84.97]}
       zoom={13}
       minZoom={6}
       maxZoom={18}
       scrollWheelZoom={true}
       className={style.mapcon}
       maxBounds={tomskBounds}
-      maxBoundsViscosity={1.0} // 1.0 = нельзя выйти вообще
+      maxBoundsViscosity={1.0}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -61,7 +80,7 @@ const MapCedars = ({ onMapClick }) => {
         <Marker
           key={cedar.id}
           position={[cedar.latitude, cedar.longitude]}
-          icon={treeIcon}
+          icon={cedar.owner && cedar.owner.id === currentUserId ? userTreeIcon : defaultTreeIcon}
         >
           <Popup closeButton={false}>
             <CustomPopupContent cedar={cedar} style={style} />

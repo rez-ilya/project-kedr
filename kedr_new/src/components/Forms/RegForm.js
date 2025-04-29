@@ -10,37 +10,68 @@ const RegForm = (props) => {
         phone_number: "",
         password: "",
         check_password: "",
-        // username: ""
+        consent: false
     });
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.id]: e.target.value });
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+        setFormData({ ...formData, [e.target.id]: value });
+        setError("");
+        setSuccess("");
+    };
+
+    const validateEmail = (email) => {
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+    };
+
+    const validatePhone = (phone) => {
+        const re = /^\+?[\d\s-()]+$/;
+        return re.test(phone);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
+        setSuccess("");
 
         // Проверка обязательных полей
         if (!formData.first_name || !formData.last_name || !formData.surname || !formData.password || !formData.check_password) {
-            alert("Пожалуйста, заполните все обязательные поля.");
+            setError("Пожалуйста, заполните все обязательные поля");
+            return;
+        }
+
+        // Проверка согласия на обработку данных
+        if (!formData.consent) {
+            setError("Необходимо дать согласие на обработку персональных данных");
             return;
         }
 
         // Проверка: хотя бы email или телефон
         if (!formData.email && !formData.phone_number) {
-            alert("Укажите хотя бы почту или телефон.");
+            setError("Укажите хотя бы почту или телефон");
+            return;
+        }
+
+        // Проверка корректности email
+        if (formData.email && !validateEmail(formData.email)) {
+            setError("Введите корректный email");
+            return;
+        }
+
+        // Проверка корректности телефона
+        if (formData.phone_number && !validatePhone(formData.phone_number)) {
+            setError("Введите корректный номер телефона");
             return;
         }
 
         // Проверка пароля
         if (formData.password !== formData.check_password) {
-            alert("Пароли не совпадают");
+            setError("Пароли не совпадают");
             return;
         }
-
-        // username можно сделать равным email или телефону (или сгенерировать)
-        // let username = formData.email ? formData.email : formData.phone_number;
-        // if (!username) username = formData.phone_number;
 
         try {
             const response = await fetch('http://localhost:8000/api/v1/user/register/', {
@@ -49,7 +80,6 @@ const RegForm = (props) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    // username: username,
                     first_name: formData.first_name,
                     last_name: formData.last_name,
                     surname: formData.surname,
@@ -63,17 +93,18 @@ const RegForm = (props) => {
             try {
                 const data = JSON.parse(text);
                 if (response.ok) {
-                    alert('Регистрация успешна!');
-                    // Можно сделать переход на логин или очистку формы
-                    props.switchToLogin();
+                    setSuccess("Регистрация успешна!");
+                    setTimeout(() => {
+                        props.switchToLogin();
+                    }, 1000);
                 } else {
-                    alert('Ошибка регистрации: ' + (data.error || JSON.stringify(data)));
+                    setError('Ошибка регистрации: ' + (data.error || JSON.stringify(data)));
                 }
             } catch (e) {
-                alert("Ошибка: сервер вернул не JSON. Ответ: " + text);
+                setError("Ошибка: сервер вернул не JSON. Ответ: " + text);
             }
         } catch (error) {
-            alert("Ошибка сети: " + error);
+            setError("Ошибка сети: " + error);
         }
     };
 
@@ -86,33 +117,49 @@ const RegForm = (props) => {
             </header>
             <form className={style.form} onSubmit={handleSubmit}>
                 <p className={style.title}>Регистрация</p>
+                
                 <label htmlFor="first_name">Имя*</label>
-                <input id="first_name" value={formData.first_name} onChange={handleChange} className={style.input} required />
+                <input id="first_name" placeholder="Введите имя" value={formData.first_name} onChange={handleChange} className={style.input} />
 
                 <label htmlFor="last_name">Фамилия*</label>
-                <input id="last_name" value={formData.last_name} onChange={handleChange} className={style.input} required />
+                <input id="last_name" placeholder="Введите фамилию" value={formData.last_name} onChange={handleChange} className={style.input} />
 
                 <label htmlFor="surname">Отчество*</label>
-                <input id="surname" value={formData.surname} onChange={handleChange} className={style.input} required />
+                <input id="surname" placeholder="Введите отчество" value={formData.surname} onChange={handleChange} className={style.input} />
 
-                <label htmlFor="email">Почта</label>
-                <input id="email" type="email" value={formData.email} onChange={handleChange} className={style.input} />
+                <label htmlFor="email">Почта*</label>
+                <input id="email" placeholder="Введите почту через @" type="email" value={formData.email} onChange={handleChange} className={style.input} />
 
-                <label htmlFor="phone_number">Телефон</label>
-                <input id="phone_number" value={formData.phone_number} onChange={handleChange} className={style.input} />
+                <label htmlFor="phone_number">Телефон*</label>
+                <input id="phone_number" placeholder="+7 (ххх) ххх хх-хх" value={formData.phone_number} onChange={handleChange} className={style.input} />
 
                 <label htmlFor="password">Пароль*</label>
-                <input id="password" type="password" value={formData.password} onChange={handleChange} className={style.input} required />
+                <input id="password" placeholder="Придумайте пароль" type="password" value={formData.password} onChange={handleChange} className={style.input} />
 
                 <label htmlFor="check_password">Повторите пароль*</label>
-                <input id="check_password" type="password" value={formData.check_password} onChange={handleChange} className={style.input} required />
+                <input id="check_password" placeholder="Повторите пароль" type="password" value={formData.check_password} onChange={handleChange} className={style.input} />
+                
+                {error && <div className={style.error}>{error}</div>}
+                {success && <div className={style.success}>{success}</div>}
+
                 <p className={style.required}>
                     * — Поля обязательные для заполнения
-                    </p>
+                </p>
+                <div className={style.consent}>
+                    <input
+                        type="checkbox"
+                        id="consent"
+                        checked={formData.consent}
+                        onChange={handleChange}
+                    />
+                    <label htmlFor="consent">
+                        Даю согласие на обработку персональных данных и принимаю условия "Политики конфиденциальности"
+                    </label>
+                </div>
+               
                 <footer className={style.footer}>
                     <button type="submit" className={style.button}>Зарегистрироваться</button>
                 </footer>
-                
             </form>
         </div>
     );

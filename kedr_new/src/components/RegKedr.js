@@ -10,6 +10,7 @@ class RegKedr extends React.Component{
           ShowFirstStep: true,
           selectedCoords: null,
           showModal: false,
+          showSuccessModal: false,
           description: '',
           promo: '',
           file: null,
@@ -44,11 +45,14 @@ class RegKedr extends React.Component{
                 </main>
                 {this.state.showModal && (
                     <div className={style.modal} onClick={this.handleOverlayClick}>
+                        {/* Модальное окно подтверждения выбора места */}
                         <div className={style.modalContent}
                         onClick={e => e.stopPropagation()}> 
                             <p>Вы уверены, что хотите посадить кедр на этом месте?</p>
-                            <button onClick={this.handleModalSave}>Да</button>
-                            <button onClick={this.handleModalCancel}>Отмена</button>
+                            <div className={style.modalButtons}>
+                                <button onClick={this.handleModalSave}>Да</button>
+                                <button onClick={this.handleModalCancel}>Отмена</button>
+                            </div>
                         </div>
                     </div>
                 )}
@@ -84,9 +88,20 @@ class RegKedr extends React.Component{
                     </footer>
                 </form>
             </div>
+
+            {/* Модальное окно успешной отправки */}
+            {this.state.showSuccessModal && (
+                <div className={style.successModal} onClick={this.handleSuccessModalClose}>
+                    <div className={style.successModalContent} onClick={e => e.stopPropagation()}>
+                        <h2>Ваша заявка успешно отправлена!</h2>
+                        <p>Мы обязательно свяжемся с Вами</p>
+                        <button onClick={this.handleSuccessModalClose}>Ок</button>
+                    </div>
+                </div>
+            )}
         </div>
         )
-        }
+    }
 
     componentDidMount() {
         document.body.style.overflow = 'hidden';
@@ -161,9 +176,7 @@ class RegKedr extends React.Component{
             });
 
             if (response.ok) {
-                alert("Заявка успешно отправлена!");
-                // Можно сбросить форму или перейти на другой этап
-                window.location.reload();
+                this.setState({ showSuccessModal: true });
             } else {
                 const data = await response.json();
                 alert("Ошибка при отправке: " + JSON.stringify(data));
@@ -171,6 +184,11 @@ class RegKedr extends React.Component{
         } catch (error) {
             alert("Ошибка сети: " + error);
         }
+    };
+
+    handleSuccessModalClose = () => {
+        this.setState({ showSuccessModal: false });
+        window.location.reload();
     };
 
     fetchUserInfo = async () => {

@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import style from "../css/basicinfo.module.css"
+import ModalAlertPortal from "./PopUp/ModalAlertPortal";
 
 const BasicInfo = (props) => {
     const [count, setCount] = useState(null);
+    const [showAuthInfo, setShowAuthInfo] = useState(false);
 
     useEffect(() => {
         fetch('http://localhost:8000/api/v1/trees/')
@@ -21,6 +23,15 @@ const BasicInfo = (props) => {
         return "кедров";
     }
 
+    const handleRegisterCedar = () => {
+        const token = localStorage.getItem("token");
+        if (token) {
+            props.openRegKedr();
+        } else {
+            setShowAuthInfo(true);
+        }
+    };
+
     return(
         <div className={style.container}>
             <main className={style.LeftBlock}>
@@ -38,7 +49,7 @@ const BasicInfo = (props) => {
                     Томск - столица кедра
                     </p>
                     <button type="submit" className={style.button}
-                    onClick={props.openRegKedr}>
+                    onClick={handleRegisterCedar}>
                         Зарегистрировать кедр
                     </button>
                     <p className={style.memoryOf}>
@@ -46,6 +57,16 @@ const BasicInfo = (props) => {
                     </p>
                 </div>
             </main>
+            {showAuthInfo && (
+                <ModalAlertPortal
+                    onClose={() => setShowAuthInfo(false)}
+                    contentClass="AlertPopUp"
+                >
+                    <div>
+                        <p>Сначала пройдите регистрацию на сайте</p>
+                    </div>
+                </ModalAlertPortal>
+            )}
         </div>
     )
 }

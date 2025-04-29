@@ -25,6 +25,9 @@
     color: #000000;
     font-size: 1rem;
     cursor: pointer;
+    font-family: 'Merriweather';
+    position: absolute;
+    left: 25px;
   }
   
   .backButton:hover {
@@ -51,13 +54,18 @@
     border-radius: 12px;
     min-height: 20px;
     margin-bottom: 3%;
+    font-family: 'Merriweather';
+  }
+
+  .input[id="check_password"]{
+    margin-bottom: 0;
   }
 
   .input::placeholder{
-    font-size: min(40px, calc(8px + 7 * ((100vw - 320px) / 1024)));
+    font-size: min(40px, calc(8px + 7 * ((100vw - 320px) / 1024))) !important;
     color: rgba(177, 177, 177, 1);
     font-style: italic;
-    font-weight: 200;
+    font-weight: 400;
   }
   
   .footer {
@@ -68,7 +76,9 @@
   }
   
   .required{
-    font-size: min(40px, calc(5px + 10 * ((100vw - 320px) / 1024)));
+    margin: 10px 0;
+    margin-left: 10px;
+    font-size: min(40px, calc(4px + 9 * ((100vw - 320px) / 1024)));
     color: rgb(0, 0, 0);
   }
 
@@ -90,3 +100,46 @@
     background-color: #f0f0f0;
   }
   
+  .consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-left: 10px;
+    font-size: 14px;
+  }
+
+  .consent input[type="checkbox"] {
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+    accent-color: rgba(101, 140, 84, 1);
+    border: 5px solid rgba(101, 140, 84, 1)
+  }
+
+  .consent label {
+    cursor: pointer;
+    user-select: none;
+    font-size: min(40px, calc(4px + 9 * ((100vw - 320px) / 1024)));
+  }
+  
+  .error {
+    color: #ff0000;
+    font-size: min(40px, calc(4px + 9 * ((100vw - 320px) / 1024)));
+    margin: 5px 0;
+    padding: 5px 10px;
+    background-color: rgba(255, 0, 0, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid #ff0000;
+    animation: slideIn 0.3s ease-out;
+  }
+  
+  @keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

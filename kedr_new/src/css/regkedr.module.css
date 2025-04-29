@@ -30,7 +30,7 @@
     background-color: #ddd;
     border: none;
     padding: 1vh 2vw;
-    font-size: 1rem;
+    font-size: 1.2rem;
     cursor: pointer;
   }
   
@@ -157,39 +157,119 @@
   }
   
   .modalContent {
-    background: #f8f8f8;
-    border-radius: 18px;
-    padding: 32px 28px 24px 28px;
-    box-shadow: 0 4px 32px rgba(0,0,0,0.18);
-    min-width: 320px;
-    max-width: 90vw;
+    background-color: rgba(159, 188, 78, 1);
+    border-radius: 50px;
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
     text-align: center;
-    position: relative;
-    z-index: 2000;
-
+    color: white;
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   .modalContent p {
-    margin-bottom: 18px;
-    font-size: 1.1rem;
+    font-weight: 900;
+    font-size: min(30px, calc(15px + 8 * ((100vw - 320px) / 1024)));
   }
   
   .modalContent button {
-    margin: 0 10px;
-    padding: 8px 22px;
-    border-radius: 8px;
+    font-family: 'Merriweather';
+    margin-top: 20px;
+    padding: 10px 40px;
+    font-size: min(40px, calc(8px + 8 * ((100vw - 320px) / 1024)));
+    font-weight: 900;
+    background-color: rgba(111, 139, 65, 1);
     border: none;
-    background: #658c54;
-    color: #fff;
-    font-size: 1rem;
+    border-radius: 12px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: transform 0.2s;
+    color: white;
   }
   
+  .modalButtons{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
   .modalContent button:hover {
-    background: #46623a;
+    transform: scale(1.05);
   }
 
   .user_info{
     font-size: 1.5rem;
+  }
+
+  .successModal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .successModalContent {
+    background-color: rgba(159, 188, 78, 1);
+    border-radius: 50px;
+    padding: 40px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    color: white;
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .successModalContent h2 {
+
+    font-size: min(40px, calc(17px + 15 * ((100vw - 320px) / 1024)));
+    font-weight: 700;
+    margin: 0;
+    padding-left: 3px;
+  }
+
+  .successModalContent p {
+    font-size: min(40px, calc(17px + 15 * ((100vw - 320px) / 1024)));
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .successModalContent button {
+    font-family: 'Merriweather';
+    margin-top: 20px;
+    padding: 10px 40px;
+    font-size: min(40px, calc(8px + 8 * ((100vw - 320px) / 1024)));
+    font-weight: 900;
+    background-color: rgba(111, 139, 65, 1);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s;
+    color: white;
+  }
+
+  .successModalContent button:hover {
+    transform: scale(1.05);
+  }
+
+  @keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
   }

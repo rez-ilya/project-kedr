@@ -91,7 +91,7 @@ class Header1 extends React.Component {
                         onClick={this.toggleLogoutPopup}
                     >
                         <span>
-                            {userInfo.first_name} {userInfo.last_name} {userInfo.surname}
+                             {userInfo.last_name} {userInfo.first_name} {userInfo.surname}
                         </span>
                     </button>
                     {showLogoutPopup && (

@@ -9,20 +9,22 @@ function CustomPopupContent({ cedar, style }) {
         <img src="/close-icon.png" alt="Закрыть" />
       </button>
       <div className={style.popup_content}>
-        <h3 className={style.popup_title}>Кедр “{cedar.title}”</h3>
+        <h3 className={style.popup_title}>Кедр "{cedar.title}"</h3>
         <div className={style.popup_main}>
-          <div className={style.popup_left}>
+          <div className={`${style.popup_left} ${!cedar.picture ? style.popup_full_width : ''}`}>
             <p className={style.popup_desc}>
               {cedar.content}
             </p>
           </div>
-          <div className={style.popup_photo_block}>
-            <img
-              src={cedar.picture ? cedar.picture : "/path/to/photo-placeholder.svg"}
-              alt="Фотография"
-              className={style.popup_photo}
-            />
-          </div>
+          {cedar.picture && (
+            <div className={style.popup_photo_block}>
+              <img
+                src={cedar.picture}
+                alt="Фотография"
+                className={style.popup_photo}
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

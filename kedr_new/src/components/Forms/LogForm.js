@@ -5,11 +5,13 @@ const LogForm = ({ switchToRegister, onLogin }) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
+    setSuccess("");
 
     // Проверка: что введено
     if (!login) {
@@ -49,9 +51,10 @@ const LogForm = ({ switchToRegister, onLogin }) => {
       if (response.ok) {
         localStorage.setItem("token", data.auth_token);
         onLogin?.();
-        alert("Успешный вход!");
-        // Обновляем страницу
-        window.location.reload();
+        setSuccess("Успешный вход!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
       } else {
         setError(data.detail || "Ошибка входа");
       }
@@ -68,14 +71,19 @@ const LogForm = ({ switchToRegister, onLogin }) => {
           <p>Вход в личный кабинет</p>
       </header>
       <form className={style.form} onSubmit={handleSubmit}>
+        {error && <div className={style.error}>{error}</div>}
+        {success && <div className={style.success}>{success}</div>}
         
-        <label htmlFor="login">Почта или телефон*</label>
+        <label htmlFor="login">Почта/Телефон</label>
         <input
           id="login"
           value={login}
-          onChange={(e) => setLogin(e.target.value)}
+          onChange={(e) => {
+            setLogin(e.target.value);
+            setError("");
+            setSuccess("");
+          }}
           className={style.input}
-          placeholder="Введите email или телефон"
         />
 
         <label htmlFor="password">Пароль</label>
@@ -83,12 +91,13 @@ const LogForm = ({ switchToRegister, onLogin }) => {
           id="password"
           type="password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setError("");
+            setSuccess("");
+          }}
           className={style.input}
-          required
         />
-
-        {error && <p style={{ color: "red" }}>{error}</p>}
         
       <div className={style.button_con}>
         {isLoading ? (

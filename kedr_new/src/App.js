@@ -41,7 +41,9 @@ function App() {
         obj={unDeathForm}
         closePopUp={() => setShowPopUpImmortal(false)}
         contentClass="UnDeathPopUp"/>}
-        <BasicInfo openRegKedr={() => setShowRegKedr(true)}/>
+        <BasicInfo 
+          openRegKedr={() => setShowRegKedr(true)}
+        />
         <button type="submit" className={style.helpcircle} onClick={() => setShowPopUpHelp(true)}>?</button>
         {ShowPopUpHelp && <PopUp
         obj={HelpInfo}
