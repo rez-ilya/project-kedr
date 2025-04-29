@@ -1,3 +1,4 @@
+
 from users.models import CustomUser
 from django.db.models import  Q
 from django.contrib.auth.backends import ModelBackend
@@ -18,19 +19,13 @@ class CustomAuthBackend(ModelBackend):
         except userModel.DoesNotExist:
             return  None
 
-    def authenticate(self, request, username=None, email=None, phone_number=None, password=None, **kwargs):
+    def authenticate(self, request,username = None, email= None, phone_number = None, password= None, **kwargs):
         userModel = get_user_model()
         try:
-            # Проверяем по email или телефону
-            if email:
-                user = userModel.objects.get(email=email)
-            elif phone_number:
-                user = userModel.objects.get(phone_number=phone_number)
-            else:
-                return None
-        except userModel.DoesNotExist:
+            user = userModel.objects.get(
+                Q(email=username) | Q(phone_number=username)
+            )
+        except (userModel.DoesNotExist, userModel.MultipleObjectsReturned):
             return None
 
-        if user.check_password(password):
-            return user
-        return None
+        return user if user.check_password(password) else None

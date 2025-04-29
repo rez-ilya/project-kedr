@@ -1,11 +1,19 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 
 from .models import Trees
 from .serializers import TreesSerializer, TreesCoordinatesSerializer
 
-
-# Create your views here.
+class TreeAPICreate(generics.CreateAPIView):
+     serializer_class = TreesSerializer
+     permission_classes = [IsAuthenticated]
+ 
+     def perform_create(self, serializer):
+         if serializer.is_valid():
+             serializer.save(owner=self.request.user)
+         else:
+             print(serializer.errors)
+             
 class TreesAPIList(generics.ListCreateAPIView):
     queryset = Trees.objects.all()
     serializer_class = TreesSerializer

@@ -1,18 +1,17 @@
-import Header1 from "./Header/Header1"
-import Header2 from "./Header/Header2";
-import Footer from "./footer/footer"
+import Header1 from "./components/Header/Header1"
+import Header2 from "./components/Header/Header2";
+import Footer from "./components/footer/footer"
 import React from "react";
 import style from "./css/main.module.css"
 import { useState } from "react";
-import PopUp from "./PopUp/PopUp";
-import BasicInfo from "./BasicInfo";
-import LogForm from "./Forms/LogForm";
-import RegForm from "./Forms/RegForm";
-import unDeathForm from "./Forms/unDeathForm";
-import HelpInfo from "./HelpIfo";
-// import Map from "./Map";
-import RegKedr from "./RegKedr";
-import MapCedars from './MapCedrs';
+import PopUp from "./components/PopUp/PopUp";
+import BasicInfo from "./components/BasicInfo";
+import LogForm from "./components/Forms/LogForm";
+import RegForm from "./components/Forms/RegForm";
+import unDeathForm from "./components/Forms/unDeathForm";
+import HelpInfo from "./components/HelpIfo";
+import RegKedr from "./components/RegKedr";
+import MapCedars from './components/MapCedrs';
 
 function App() {
 

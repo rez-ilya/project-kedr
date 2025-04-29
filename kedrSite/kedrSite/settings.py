@@ -124,25 +124,26 @@ DATABASES = {
 # }
 
 DJOSER = {
-    'SERIALIZERS': {
-        'user_create': 'users.serializers.UserSerializer',
-        'token_create': 'djoser.serializers.TokenCreateSerializer',
+    'SERIALIZERS' : {
+        'user_create' : 'users.serializers.UserSerializer'
     },
-    'LOGIN_FIELD': 'email',
-    'USER_CREATE_PASSWORD_RETYPE': False,
-    'SEND_ACTIVATION_EMAIL': False,
-    'SEND_CONFIRMATION_EMAIL': False,
-    'TOKEN_MODEL': 'rest_framework.authtoken.models.Token',
-    'PERMISSIONS': {
-        'token_create': ['rest_framework.permissions.AllowAny'],
+    #'USER_CREATE_PASSWORD_RETYPE': True,
+    #'SET_PASSWORD_RETYPE': True,
+    #'SEND_CONFIRMATION_EMAIL': True,
+    #'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+    #'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    #'PASSWORD_RESET_CONFIRM': True,
+    #'PASSWORD_RESET_CONFIRM_URL': 'api/v1/djoser-auth/users/reset_password_confirm/',
+    #'USERNAME_RESET_CONFIRM_URL': 'api/v1/email/reset/confirm/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'ACTIVATION_URL': 'api/v1/activate/{uid}/{token}',
     }
-}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication',
-         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
     ]
 }
 
@@ -190,4 +191,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
