@@ -16,6 +16,7 @@ class RegKedr extends React.Component{
           file: null,
           title: '',
           userInfo: null,
+          Error: '',
         };
       }
 
@@ -28,7 +29,7 @@ class RegKedr extends React.Component{
                     onClick={this.props.closeRegKedr}>Вернуться на главную</button>
                     <span className={style.user_info}>
                         {this.state.userInfo
-                          ? `${this.state.userInfo.first_name} ${this.state.userInfo.last_name} ${this.state.userInfo.surname}`
+                          ? `${this.state.userInfo.last_name} ${this.state.userInfo.first_name} ${this.state.userInfo.surname}`
                           : ""}
                     </span>
                 </header>
@@ -64,7 +65,7 @@ class RegKedr extends React.Component{
                     onClick={this.props.closeRegKedr}>Вернуться на главную</button>
                     <span className={style.user_info}>
                         {this.state.userInfo
-                          ? `${this.state.userInfo.first_name} ${this.state.userInfo.last_name} ${this.state.userInfo.surname}`
+                          ? `${this.state.userInfo.last_name} ${this.state.userInfo.first_name} ${this.state.userInfo.surname}`
                           : ""}
                     </span>
                 </header>
@@ -82,6 +83,7 @@ class RegKedr extends React.Component{
                     <input type="file" id="add_img" onChange={this.handleInputChange} />
                     <label htmlFor="promo">Введите промокод</label>
                     <input id="promo" value={this.state.promo || ''} onChange={this.handleInputChange} />
+                    {this.state.Error && <div className={style.error}>{this.state.Error}</div>}
                     <footer className={style.footer_reg}>
                         <button type="button" onClick={this.setShowFirstStep}>Назад</button>
                         <button type="submit">Отправить заявку</button>
@@ -152,9 +154,30 @@ class RegKedr extends React.Component{
         e.preventDefault();
 
         const { selectedCoords, title, description, file, promo } = this.state;
-        if (!selectedCoords || !title || !description) {
-            alert("Пожалуйста, заполните все обязательные поля и выберите место на карте.");
+        if (!selectedCoords || !title || !description || !promo) { //пока добавим промокд в обязательные поля, далее будет необязательным
+            this.setState({ Error:"Пожалуйста, заполните все обязательные поля."});
             return;
+        }
+
+        if (promo) {
+            try {
+                const token = localStorage.getItem("token");
+                const promoResponse = await fetch(`http://localhost:8000/api/v1/promocodes/check/${promo}/`, {
+                    method: "GET",
+                    headers: token
+                        ? { "Authorization": `Token ${token}` }
+                        : {},
+                });
+
+                if (!promoResponse.ok) {
+                    this.setState({ Error: "Такого промокода не существует" });
+                    return;
+                }
+            } catch (error) {
+                console.error("Ошибка при проверке промокода:", error);
+                this.setState({ Error: "Ошибка при проверке промокода" });
+                return;
+            }
         }
 
         const formData = new FormData();
@@ -176,7 +199,7 @@ class RegKedr extends React.Component{
             });
 
             if (response.ok) {
-                this.setState({ showSuccessModal: true });
+                this.setState({ showSuccessModal: true, Error: '' });
             } else {
                 const data = await response.json();
                 alert("Ошибка при отправке: " + JSON.stringify(data));
