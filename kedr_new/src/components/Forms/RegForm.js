@@ -110,40 +110,46 @@ const RegForm = (props) => {
 
     return (
         <div className={style.container}>
-            <header className={style.header}>
+            {/* <header className={style.header}>
                 <button className={style.backButton} onClick={props.switchToLogin}>
                     ← Назад
                 </button>
-            </header>
+            </header> */}
             <form className={style.form} onSubmit={handleSubmit}>
-                <p className={style.title}>Регистрация</p>
+                <header className={style.title}>Регистрация</header>
                 
-                <label htmlFor="first_name">Имя*</label>
-                <input id="first_name" placeholder="Введите имя" value={formData.first_name} onChange={handleChange} className={style.input} />
+                <div className={style.form_container}>
+                    <div className={style.form_container_row}>
+                        <label htmlFor="first_name">Имя*</label>
+                        <input id="first_name" placeholder="Введите имя" value={formData.first_name} onChange={handleChange} className={style.input} />
 
-                <label htmlFor="last_name">Фамилия*</label>
-                <input id="last_name" placeholder="Введите фамилию" value={formData.last_name} onChange={handleChange} className={style.input} />
+                        <label htmlFor="last_name">Фамилия*</label>
+                        <input id="last_name" placeholder="Введите фамилию" value={formData.last_name} onChange={handleChange} className={style.input} />
 
-                <label htmlFor="surname">Отчество*</label>
-                <input id="surname" placeholder="Введите отчество" value={formData.surname} onChange={handleChange} className={style.input} />
+                        <label htmlFor="surname">Отчество*</label>
+                        <input id="surname" placeholder="Введите отчество" value={formData.surname} onChange={handleChange} className={style.input} />
 
-                <label htmlFor="email">Почта*</label>
-                <input id="email" placeholder="Введите почту через @" type="email" value={formData.email} onChange={handleChange} className={style.input} />
+                        <label htmlFor="password">Пароль*</label>
+                        <input id="password" placeholder="Придумайте пароль" type="password" value={formData.password} onChange={handleChange} className={style.input} />
+                    </div>
+                    <div className={style.form_container_row}>
+                        <div className={style.form_container_row_item}>
+                            <label htmlFor="phone_number">Телефон*</label>
+                            <input id="phone_number" placeholder="+7 (xxx) xxx xx-xx" value={formData.phone_number} onChange={handleChange} className={style.input} />
 
-                <label htmlFor="phone_number">Телефон*</label>
-                <input id="phone_number" placeholder="+7 (ххх) ххх хх-хх" value={formData.phone_number} onChange={handleChange} className={style.input} />
-
-                <label htmlFor="password">Пароль*</label>
-                <input id="password" placeholder="Придумайте пароль" type="password" value={formData.password} onChange={handleChange} className={style.input} />
-
-                <label htmlFor="check_password">Повторите пароль*</label>
-                <input id="check_password" placeholder="Повторите пароль" type="password" value={formData.check_password} onChange={handleChange} className={style.input} />
-                
+                            <label htmlFor="email">Почта*</label>
+                            <input id="email" placeholder="Введите почту через @" type="email" value={formData.email} onChange={handleChange} className={style.input} />
+                        </div>
+                        <div className={style.form_container_row_item}>
+                            <label htmlFor="check_password">Повторите пароль*</label>
+                            <input id="check_password" placeholder="Повторите пароль" type="password" value={formData.check_password} onChange={handleChange} className={style.input} />
+                        </div>
+                    </div>
+                </div>
                 {error && <div className={style.error}>{error}</div>}
                 {success && <div className={style.success}>{success}</div>}
-
                 <p className={style.required}>
-                    * — Поля обязательные для заполнения
+                    *Поля обязательные для заполнения
                 </p>
                 <div className={style.consent}>
                     <input
@@ -153,10 +159,9 @@ const RegForm = (props) => {
                         onChange={handleChange}
                     />
                     <label htmlFor="consent">
-                        Даю согласие на обработку персональных данных и принимаю условия "Политики конфиденциальности"
+                        Даю согласие на <span className={style.greenText}>обработку персональных данных</span> и принимаю условия <a href="#" className={style.greenText}>"Политики конфиденциальности"</a>
                     </label>
                 </div>
-               
                 <footer className={style.footer}>
                     <button type="submit" className={style.button}>Зарегистрироваться</button>
                 </footer>

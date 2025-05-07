@@ -149,3 +149,10 @@
 .AlertPopUp p {
   text-align: center;
 }
+
+.LogPopUp{
+  min-height: min-content;
+  max-height: 98%;
+  min-width: max-content;
+  overflow-y: hidden;
+}

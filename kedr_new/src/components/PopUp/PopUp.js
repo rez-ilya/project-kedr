@@ -22,6 +22,24 @@ class PopUp extends React.Component {
         }
     }
 
+    componentDidMount() {
+        // Сохраняем текущую позицию скролла
+        const scrollY = window.scrollY;
+        // Блокируем скролл
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = '100%';
+    }
+
+    componentWillUnmount() {
+        // Восстанавливаем позицию скролла
+        const scrollY = document.body.style.top;
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.width = '';
+        window.scrollTo(0, parseInt(scrollY || '0') * -1);
+    }
+
     render() {
         const { isClosing } = this.state;
         return (
@@ -39,14 +57,6 @@ class PopUp extends React.Component {
                 </div>
             </div>
         )
-    }
-    
-    componentDidMount() {
-        document.body.style.overflow = 'hidden';
-    }
-
-    componentWillUnmount() {
-        document.body.style.overflow = '';
     }
 }
 

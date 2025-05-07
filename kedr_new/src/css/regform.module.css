@@ -3,8 +3,7 @@
 .container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 9% 12%;
+    padding: 3% 8% 4%;
     background-color: rgba(241, 242, 235, 1);
   }
   
@@ -17,7 +16,7 @@
     font-size: 1.2rem;
   }
   
-  .backButton {
+  /* .backButton {
     padding: 0;
     margin-right: auto;
     background: none;
@@ -32,7 +31,7 @@
   
   .backButton:hover {
     text-decoration: underline;
-  }
+  } */
   
   .form {
     font-size: min(40px, calc(10px + 7 * ((100vw - 320px) / 1024)));
@@ -40,30 +39,38 @@
     flex-direction: column;
     gap: 6px;
     width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
   }
   
   .title{
-    font-size: min(40px, calc(11px + 8 * ((100vw - 320px) / 1024)));
-    margin: 5px auto;
+    font-size: min(40px, calc(14px + 8 * ((100vw - 320px) / 1024)));
+    margin: 2% auto 4%;
   }
 
   .input {
     padding: 10px;
-    font-size: 14px;
-    border: 2px solid rgba(101, 140, 84, 1);
-    border-radius: 12px;
+    font-size: 16px;
+    border: 2px solid #658c54;
+    border-radius: 16px;
     min-height: 20px;
-    margin-bottom: 3%;
+    margin-bottom: 5%;
     font-family: 'Merriweather';
+    background: #fff;
+    box-sizing: border-box;
   }
 
   .input[id="check_password"]{
     margin-bottom: 0;
   }
 
-  .input::placeholder{
-    font-size: min(40px, calc(8px + 7 * ((100vw - 320px) / 1024))) !important;
-    color: rgba(177, 177, 177, 1);
+  .input[id="password"]{
+    margin-bottom: 0;
+  }
+
+  .input::placeholder {
+    font-size: 16px !important;
+    color: #b1b1b1;
     font-style: italic;
     font-weight: 400;
   }
@@ -76,24 +83,25 @@
   }
   
   .required{
-    margin: 10px 0;
-    margin-left: 10px;
+    width: 50%;
+    margin: 1% 0;
     font-size: min(40px, calc(4px + 9 * ((100vw - 320px) / 1024)));
     color: rgb(0, 0, 0);
   }
 
   .button {
-    font-size: min(40px, calc(5px + 14 * ((100vw - 320px) / 1024)));
-    min-width: 85%;
+    font-size: 20px;
+    width: 65%;
     font-family: "Merriweather";
-    margin-top: 8%;
+    margin-top: 2%;
     background-color: white;
-    border: 2px solid rgba(101, 140, 84, 1);
-    padding: 10px 20px;
-    border-radius: 15px;
+    border: 2px solid #658c54;
+    padding: 12px 0;
+    border-radius: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s;
+    color: #000;
   }
   
   .button:hover {
@@ -104,22 +112,51 @@
     display: flex;
     align-items: flex-start;
     gap: 8px;
-    margin-left: 10px;
     font-size: 14px;
+    width: 50%;
   }
 
   .consent input[type="checkbox"] {
-    width: 50px;
-    height: 30px;
+    appearance: none;
+    -webkit-appearance: none;
+    width: 60px;
+    height: 22px;
+    border: 2px solid #658c54;
+    border-radius: 4px;
+    background: #fff;
     cursor: pointer;
-    accent-color: rgba(101, 140, 84, 1);
-    border: 5px solid rgba(101, 140, 84, 1)
-  }
+    position: relative;
+    margin-top: 2px;
+    margin-right: 6px;
+    outline: none;
+    transition: border-color 0.2s;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.consent input[type="checkbox"]:checked {
+    border-color: #658c54;
+    background: #fff;
+}
+
+.consent input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 7px;
+    height: 13px;
+    border: solid #658c54;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+    display: block;
+}
 
   .consent label {
     cursor: pointer;
     user-select: none;
-    font-size: min(40px, calc(4px + 9 * ((100vw - 320px) / 1024)));
+    font-size: 15px;
+    line-height: 1.3;
   }
   
   .error {
@@ -141,5 +178,49 @@
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+.greenText {
+    color: #658c54;
+}
+
+.form_container {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    justify-content: center;
+    max-width: 700px;
+    width: 100%;
+}
+
+.form_container_row {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+.form_container_row_item{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.form_container_row_item:nth-child(2){
+  justify-content: flex-end;
+}
+
+@media (max-width: 800px) {
+    .form_container {
+        flex-direction: column;
+        gap: 0;
+    }
+    .form_container_row {
+        width: 100%;
+        gap: 10px;
     }
 }

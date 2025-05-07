@@ -17,6 +17,12 @@ const userTreeIcon = new L.Icon({
   iconSize: [30, 50],
 });
 
+const selectedPointIcon = new L.Icon({
+  iconUrl: '/selected-point.svg',
+  iconSize: [32, 32],
+  iconAnchor: [16, 16],
+});
+
 const tomskBounds = [
   [56.4847 - 1.8, 84.9482 - 3.0], // юго-западная точка
   [56.4847 + 1.8, 84.9482 + 3.0]  // северо-восточная точка
@@ -31,7 +37,7 @@ function ClickHandler({ onMapClick }) {
   return null;
 }
 
-const MapCedars = ({ onMapClick }) => {
+const MapCedars = ({ onMapClick, selectedCoords }) => {
   const [cedars, setCedars] = useState([]);
   const [currentUserId, setCurrentUserId] = useState(null);
 
@@ -76,11 +82,17 @@ const MapCedars = ({ onMapClick }) => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {onMapClick && <ClickHandler onMapClick={onMapClick} />}
+      {selectedCoords && (
+        <Marker
+          position={selectedCoords}
+          icon={selectedPointIcon}
+        />
+      )}
       {cedars.map((cedar) => (
         <Marker
           key={cedar.id}
           position={[cedar.latitude, cedar.longitude]}
-          icon={cedar.owner && cedar.owner.id === currentUserId ? userTreeIcon : defaultTreeIcon}
+          icon={cedar.owner.id === currentUserId ? userTreeIcon : defaultTreeIcon}
         >
           <Popup closeButton={false}>
             <CustomPopupContent cedar={cedar} style={style} />

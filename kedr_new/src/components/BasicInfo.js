@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import style from "../css/basicinfo.module.css"
 import ModalAlertPortal from "./PopUp/ModalAlertPortal";
 
-const BasicInfo = (props) => {
+const BasicInfo = () => {
+    const navigate = useNavigate();
     const [count, setCount] = useState(null);
     const [showAuthInfo, setShowAuthInfo] = useState(false);
 
@@ -26,7 +28,7 @@ const BasicInfo = (props) => {
     const handleRegisterCedar = () => {
         const token = localStorage.getItem("token");
         if (token) {
-            props.openRegKedr();
+            navigate('/register-kedr');
         } else {
             setShowAuthInfo(true);
         }
