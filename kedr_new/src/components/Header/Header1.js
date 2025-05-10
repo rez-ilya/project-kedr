@@ -76,8 +76,10 @@ class Header1 extends React.Component {
             <div className={style.header}>
                 <div>
                 <button type="button"
-                className={style.button}>
-                    почта@pochta.ru
+                  className={style.button + (!userInfo ? ' ' + style.hiddenButton : '')}
+                  onClick={userInfo ? () => window.location.href = '/my-cedars' : undefined}
+                  style={!userInfo ? {pointerEvents: 'none'} : {}}>
+                    Мои кедры
                 </button>
                 <button type="button" 
                 className={style.button}
@@ -86,24 +88,24 @@ class Header1 extends React.Component {
                 </button>
                 {userInfo ? (
                     <div className={style.userContainer} ref={this.userContainerRef}>
-                    <button 
-                        className={style.userInfo}
-                        onClick={this.toggleLogoutPopup}
-                    >
-                        <span>
-                             {userInfo.last_name} {userInfo.first_name} {userInfo.surname}
-                        </span>
-                    </button>
-                    {showLogoutPopup && (
-                        <div className={style.logoutPopup}>
-                            <button 
-                                className={style.logoutButton}
-                                onClick={this.handleLogout}>
-                                Выйти
+                        <button 
+                            className={style.userInfo}
+                                onClick={this.toggleLogoutPopup}
+                            >
+                                <span>
+                                    {userInfo.last_name} {userInfo.first_name} {userInfo.surname}
+                                </span>
                             </button>
-                        </div>
-                    )}
-                </div>
+                            {showLogoutPopup && (
+                                <div className={style.logoutPopup}>
+                                    <button 
+                                        className={style.logoutButton}
+                                        onClick={this.handleLogout}>
+                                        Выйти
+                        </button>
+                    </div>
+                )}
+            </div>
                 ) : (
                     <button type="button"
                     className={style.button} 

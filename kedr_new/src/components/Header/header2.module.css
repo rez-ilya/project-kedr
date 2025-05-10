@@ -2,28 +2,29 @@
     display: flex;
     background-color: rgba(101, 140, 84, 1);
     flex-direction: row;
+    height: 15vw;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .title{
-    font-size: min(50px, calc(17px + 24 * ((100vw - 320px) / 1024)));
-    font-weight: 400;
-    margin: auto;
+    font-size: min(40px, calc(13px + 18 * ((100vw - 320px) / 1024)));
+    font-weight: 800;
     color: rgba(241, 243, 235, 1);
     max-width: 20vw;
-    padding-right: 4vw;
+    padding-left: 4vw;
 }
 
-
-
 .text{
-    font-weight: 400;
+    display: flex;
+    font-weight: 200;
     min-height: 14.3vh;
-    font-size: min( 45px, calc(13px + 21 * ((100vw - 320px) / 1024)));
     color: rgba(241, 243, 235, 1);
-    margin-right: 6vh;
-    margin-top: 7.6vh;
-    margin-bottom: 7.6vh;
     max-width: 50vw;
+    align-items: center;
+}
+
+.text > p{
+    margin: 0;
+    font-size: min(34px, calc(7px + 18 * ((100vw - 320px) / 1024)));
 }

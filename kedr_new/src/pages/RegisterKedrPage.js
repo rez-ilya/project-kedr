@@ -160,7 +160,10 @@ const RegisterKedrPage = () => {
         <div className={style.page_wrapper}>
             {/* Фиксированная шапка */}
             <div className={style.fixed_header}>
-                <button className={style.back_btn} onClick={() => navigate('/')}>🠔 Вернуться на главную</button>
+                <button className={style.back_btn} onClick={() => navigate('/')}>
+                    <span className={style.backArrow}>←</span>
+                    <span className={style.backText}>Вернуться на главную</span>
+                </button>
                 <div className={style.user_name}>
                     {state.userInfo ? `${state.userInfo.last_name} ${state.userInfo.first_name} ${state.userInfo.surname}` : ''}
                 </div>

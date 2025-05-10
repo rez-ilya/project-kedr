@@ -13,7 +13,7 @@ const defaultTreeIcon = new L.Icon({
 });
 
 const userTreeIcon = new L.Icon({
-  iconUrl: '/tree-icon-red.png', // Убедитесь, что у вас есть такая иконка
+  iconUrl: '/tree-icon-red.png',
   iconSize: [30, 50],
 });
 

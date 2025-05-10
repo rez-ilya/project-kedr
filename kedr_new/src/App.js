@@ -13,6 +13,7 @@ import HelpInfo from "./components/HelpIfo";
 import MapCedars from './components/MapCedrs';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RegisterKedrPage from './pages/RegisterKedrPage';
+import MyCedarsPage from './pages/MyCedarsPage';
 
 function HomePage() {
   const [ShowPopUpAuth, setShowPopUpAuth] = useState(false);
@@ -81,6 +82,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/register-kedr" element={<RegisterKedrPage />} />
+        <Route path="/my-cedars" element={<MyCedarsPage />} />
       </Routes>
     </Router>
   );
