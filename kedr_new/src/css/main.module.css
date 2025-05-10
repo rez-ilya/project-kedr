@@ -121,14 +121,14 @@ body, html {
 
   @media (max-width: 1350px){
     .main:first-child{
-      top: 12vh;
+      top: 12vw;
     }
 
     .main:nth-child(2){
-      margin-top: 12vh;
+      margin-top: 12vw;
     }
 
     .helpcircle{
-      right: 3vh;
+      right: 3vw;
     }
   }
