@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import style from "../../css/regform.module.css"
 
 const RegForm = (props) => {
@@ -15,12 +15,32 @@ const RegForm = (props) => {
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
+    const handleOpenPolicy = (e) => {
+        e.preventDefault();
+        window.open('/ПОЛОЖЕНИЕ.pdf', '_blank');
+    };
+
     const handleChange = (e) => {
         const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
         setFormData({ ...formData, [e.target.id]: value });
         setError("");
         setSuccess("");
+
+        // Контроль цвета текста для поля даты
+        if (e.target.type === 'date') {
+            e.target.style.color = value ? '#000' : '#b1b1b1';
+            e.target.style.webkitTextFillColor = value ? '#000' : '#b1b1b1';
+        }
     };
+
+    // Добавляем эффект для установки начального цвета
+    useEffect(() => {
+        const dateInput = document.getElementById('birth_date');
+        if (dateInput) {
+            dateInput.style.color = formData.birth_date ? '#000' : '#b1b1b1';
+            dateInput.style.webkitTextFillColor = formData.birth_date ? '#000' : '#b1b1b1';
+        }
+    }, [formData.birth_date]);
 
     const validateEmail = (email) => {
         const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -133,17 +153,27 @@ const RegForm = (props) => {
                         <input id="password" placeholder="Придумайте пароль" type="password" value={formData.password} onChange={handleChange} className={style.input} />
                     </div>
                     <div className={style.form_container_row}>
-                        <div className={style.form_container_row_item}>
-                            <label htmlFor="phone_number">Телефон*</label>
-                            <input id="phone_number" placeholder="+7 (xxx) xxx xx-xx" value={formData.phone_number} onChange={handleChange} className={style.input} />
+                        <label htmlFor="phone_number">Телефон*</label>
+                        <input id="phone_number" placeholder="+7 (xxx) xxx xx-xx" value={formData.phone_number} onChange={handleChange} className={style.input} />
 
-                            <label htmlFor="email">Почта*</label>
-                            <input id="email" placeholder="Введите почту через @" type="email" value={formData.email} onChange={handleChange} className={style.input} />
-                        </div>
-                        <div className={style.form_container_row_item}>
-                            <label htmlFor="check_password">Повторите пароль*</label>
-                            <input id="check_password" placeholder="Повторите пароль" type="password" value={formData.check_password} onChange={handleChange} className={style.input} />
-                        </div>
+                        <label htmlFor="email">Почта*</label>
+                        <input id="email" placeholder="Введите почту через @" type="email" value={formData.email} onChange={handleChange} className={style.input} />
+
+                        <label htmlFor="birth_date">Дата рождения*</label>
+                        <input 
+                            id="birth_date" 
+                            type="date" 
+                            value={formData.birth_date} 
+                            onChange={handleChange} 
+                            className={style.input}
+                            style={{
+                                color: formData.birth_date ? '#000' : '#b1b1b1',
+                                WebkitTextFillColor: formData.birth_date ? '#000' : '#b1b1b1'
+                            }}
+                        />
+
+                        <label htmlFor="check_password">Повторите пароль*</label>
+                        <input id="check_password" placeholder="Повторите пароль" type="password" value={formData.check_password} onChange={handleChange} className={style.input} />
                     </div>
                 </div>
                 {error && <div className={style.error}>{error}</div>}
@@ -159,7 +189,7 @@ const RegForm = (props) => {
                         onChange={handleChange}
                     />
                     <label htmlFor="consent">
-                        Даю согласие на <span className={style.greenText}>обработку персональных данных</span> и принимаю условия <a href="#" className={style.greenText}>"Политики конфиденциальности"</a>
+                        Даю согласие на <span className={style.greenText} onClick={handleOpenPolicy} style={{cursor: 'pointer'}}>обработку персональных данных</span> и принимаю условия <span href="#" className={style.greenText} onClick={handleOpenPolicy}>"Политики конфиденциальности"</span>
                     </label>
                 </div>
                 <footer className={style.footer}>

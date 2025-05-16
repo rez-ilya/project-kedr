@@ -17,6 +17,10 @@
     align-items: center;
   }
 
+  .leaflet-popup-content p {
+    margin: 0 !important;
+  }
+  
   .leaflet-container a.leaflet-popup-close-button{
     display: none;
   }

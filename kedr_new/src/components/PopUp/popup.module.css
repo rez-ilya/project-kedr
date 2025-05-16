@@ -32,6 +32,7 @@
 }
 
 .content {
+  font-family: "Merriweather";
   background-color: rgba(255, 255, 255, 1);
   border-radius: 24px;
   width: 90%;
@@ -155,4 +156,17 @@
   max-height: 98%;
   min-width: max-content;
   overflow-y: hidden;
+}
+
+.resetPassword {
+  background-color: #6F8B41;
+  padding: 55px;
+  max-width: 400px;
+  width: 90%;
+  margin: 20px auto;
+  color: white;
+}
+
+.resetPassword .close {
+  filter: brightness(0) invert(1);
 }

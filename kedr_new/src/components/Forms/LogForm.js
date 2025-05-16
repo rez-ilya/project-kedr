@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import style from "../../css/logform.module.css";
+import ResetPasswordForm from "./ResetPasswordForm";
+import PopUp from "../PopUp/PopUp";
 
-const LogForm = ({ switchToRegister, onLogin }) => {
+const LogForm = ({ switchToRegister, onLogin, onResetPassword }) => {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showResetPassword, setShowResetPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -113,13 +116,21 @@ const LogForm = ({ switchToRegister, onLogin }) => {
       </form>
       
       <footer className={style.footer}>
-        <p onClick={switchToRegister} className={style.reg_button}>
+        <p onClick={onResetPassword} className={style.reg_button}>
           Забыли пароль?
         </p>
         <p onClick={switchToRegister} className={style.reg_button}>
           Нет аккаунта? Зарегистрироваться
         </p>
       </footer>
+      {showResetPassword && (
+        <PopUp
+          obj={ResetPasswordForm}
+          object="resetPassword"
+          contentClass="resetPassword"
+          closePopUp={() => setShowResetPassword(false)}
+        />
+      )}
     </div>
   );
 };

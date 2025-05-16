@@ -183,6 +183,7 @@
 
 .greenText {
     color: #658c54;
+    text-decoration: underline;
 }
 
 .form_container {
@@ -223,4 +224,32 @@
         width: 100%;
         gap: 10px;
     }
+}
+
+.input[type="date"] {
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: 400;
+    position: relative;
+    padding-right: 40px !important;
+}
+
+.input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    background: url('../../public/mynaui_calendar.svg') no-repeat center;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    filter: none;
+    opacity: 1;
+    display: block;
+    border-width: thin;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input[type="date"]::-webkit-datetime-edit {
+    padding: 0;
 }

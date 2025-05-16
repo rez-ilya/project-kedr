@@ -152,8 +152,14 @@
   background: #cde3b0;
 }
 
-/* @media (max-width: 700px){
-    height: 16vh;
+/* @media (max-width: 1700px){
+    .header{
+        height: 12vw;
+    }
+
+    .header > div{
+        padding: 3vw 6vw 1.5vw;
+    }
 } */
 
 @media (max-width: 431px){

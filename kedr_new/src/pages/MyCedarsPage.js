@@ -22,7 +22,7 @@ function MyCedarsPage() {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       })
         .then(res => res.json())
-        .then(data => setCedars(data.filter(cedar => cedar.owner.id === currentUserId)));
+        .then(data => setCedars(data.filter(cedar => cedar.owner === currentUserId)));
     }
   }, [currentUserId]);
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../css/regkedr.module.css";
 import MapCedars from "../components/MapCedrs";
@@ -6,6 +6,7 @@ import ModalRegKedr from "../components/PopUp/ModalRegKedr";
 
 const RegisterKedrPage = () => {
     const navigate = useNavigate();
+    const textareaRef = useRef(null);
     const [state, setState] = React.useState({
         selectedCoords: null,
         showModal: false,
@@ -18,6 +19,9 @@ const RegisterKedrPage = () => {
         Error: '',
         filePreview: null,
         fileName: '',
+        dedication: '',
+        img_dedication: [],
+        img_previews: []
     });
 
     React.useEffect(() => {
@@ -26,6 +30,15 @@ const RegisterKedrPage = () => {
             document.body.style.overflow = '';
         };
     }, []);
+
+    // Очистка URL при размонтировании компонента
+    React.useEffect(() => {
+        return () => {
+            state.img_previews?.forEach(preview => {
+                URL.revokeObjectURL(preview.url);
+            });
+        };
+    }, [state.img_previews]);
 
     const fetchUserInfo = async () => {
         try {
@@ -66,6 +79,10 @@ const RegisterKedrPage = () => {
 
     const handleInputChange = (e) => {
         const { id, value, files } = e.target;
+        if (id === "description" && textareaRef.current) {
+            textareaRef.current.style.height = "auto";
+            textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
+        }
         if (id === "add_img") {
             const file = files[0];
             if (file) {
@@ -75,9 +92,44 @@ const RegisterKedrPage = () => {
                     fileName: file.name
                 }));
             }
+        } else if (id === "img_dedication") {
+            const selectedFiles = Array.from(files);
+            if (selectedFiles.length > 0) {
+                const maxFiles = 10;
+                const currentFiles = state.img_dedication || [];
+                if (currentFiles.length + selectedFiles.length > maxFiles) {
+                    alert(`Можно загрузить не более ${maxFiles} фотографий`);
+                    return;
+                }
+
+                // Создаем превью для новых файлов
+                const newPreviews = selectedFiles.map(file => ({
+                    url: URL.createObjectURL(file),
+                    name: file.name
+                }));
+
+                setState(prev => ({ 
+                    ...prev, 
+                    img_dedication: [...(prev.img_dedication || []), ...selectedFiles],
+                    img_previews: [...(prev.img_previews || []), ...newPreviews]
+                }));
+            }
         } else {
             setState(prev => ({ ...prev, [id]: value }));
         }
+    };
+
+    const handleRemovePhoto = (indexToRemove) => {
+        setState(prev => {
+            // Освобождаем URL превью
+            URL.revokeObjectURL(prev.img_previews[indexToRemove].url);
+            
+            return {
+                ...prev,
+                img_dedication: prev.img_dedication.filter((_, index) => index !== indexToRemove),
+                img_previews: prev.img_previews.filter((_, index) => index !== indexToRemove)
+            };
+        });
     };
 
     const handleSubmit = async (e) => {
@@ -129,6 +181,13 @@ const RegisterKedrPage = () => {
         formData.append("longitude", selectedCoords[1]);
         if (file) formData.append("picture", file);
         formData.append("promo", promo);
+        formData.append("title", state.title || '');
+        formData.append("dedication", state.dedication || '');
+        if (state.img_dedication) {
+            state.img_dedication.forEach((file, index) => {
+                formData.append(`img_dedication_${index}`, file);
+            });
+        }
 
         try {
             const token = localStorage.getItem("token");
@@ -178,7 +237,7 @@ const RegisterKedrPage = () => {
                     <div className={style.memory_label}><span>Дерево</span> – символ вечной памяти</div>
                     <div className={style.hero_title_block}>
                         <div className={style.hero_title}>
-                            Зарегистрируйте <span className={style.cedr_word}>кедр</span><br />в 2 шага
+                            Зарегистрируйте <span className={style.cedr_word}>кедр</span><br />в 3 шага
                         </div>
                     </div>
                 </div>
@@ -196,44 +255,114 @@ const RegisterKedrPage = () => {
             </section>
 
             {/* Третий экран */}
-            <section className={style.step_section}>
-                <div className={style.step_title_block}>
-                    <div className={style.step_title}><span>Шаг 2:</span> Добавьте описание и фото</div>
-                </div>
-                <form className={style.reg_kedr_form} onSubmit={handleSubmit}>
+            <form className={style.reg_kedr_form} onSubmit={handleSubmit}>
+                <section className={style.step_section}>
+                    <div className={style.step_title_block}>
+                        <div className={style.step_title}><span>Шаг 2:</span> Добавьте дату посадки и фото</div>
+                    </div>
+                        <div className={style.form_grid}>
+                            <div className={style.form_left}>
+                                <label htmlFor="date">Введите дату посадки</label>
+                                <input type="date" id="date" 
+                                    value={state.date || ''} 
+                                    onChange={handleInputChange} 
+                                    className={style.input} 
+                                    style={{
+                                    color: state.date ? '#000' : '#b1b1b1',
+                                    WebkitTextFillColor: state.date ? '#000' : '#b1b1b1'
+                                    }}/>
+                                <label className={style.file_label} htmlFor="add_img">
+                                    <div className={style.file_box}>
+                                        {state.fileName ? (
+                                            <div className={style.file_name}>
+                                                <span className={style.file_icon}>📷</span>
+                                                <span className={style.file_text}>{state.fileName}</span>
+                                            </div>
+                                        ) : (
+                                            <span className={style.file_plus}>+</span>
+                                        )}
+                                    </div>
+                                    <input type="file" id="add_img" onChange={handleInputChange} className={style.file_input} accept="image/*,.svg" />
+                                </label>
+                                <div className={style.file_hint}>
+                                    {state.file ? 'Фото загружено' : 'Добавьте файлы формата *.png, *.jpeg, *.jpg, *.svg, *.gif, *.webp'}
+                                </div>
+                            </div>
+                        </div>
+                    
+                </section>
+                {/* Четвёртый экран */}
+                <section className={style.step_section}>
+                    <div className={style.step_title_block}>
+                        <div className={style.step_title}><span>Шаг 3:</span> Оплатите и отправьте заявку</div>
+                    </div>
                     <div className={style.form_grid}>
                         <div className={style.form_left}>
-                            <label htmlFor="description">Описание</label>
-                            <textarea id="description" value={state.description || ''} onChange={handleInputChange} required className={style.textarea} />
-                            <label htmlFor="promo">Введите промокод</label>
-                            <input id="promo" value={state.promo || ''} onChange={handleInputChange} className={style.input} />
+                            <div className={style.input_group}>
+                                <label htmlFor="title">Введите название кедра</label>
+                                <input id="title" value={state.title || ''} onChange={handleInputChange} className={style.input} />
+                            </div>
+                            <div className={style.input_group}>
+                                <label htmlFor="dedication">Введите ФИО человека, которому Вы бы хотели посвятить дерево</label>
+                                <input id="dedication" value={state.dedication || ''} onChange={handleInputChange} className={style.input} />
+                            </div>
+                            <div className={style.input_group}>
+                                <label htmlFor="promo">Введите промокод</label>
+                                <input id="promo" value={state.promo || ''} onChange={handleInputChange} className={style.input} />
+                            </div>
                         </div>
                         <div className={style.form_right}>
-                            <label className={style.file_label} htmlFor="add_img">
+                            <label htmlFor="description">Описание</label>
+                            <textarea
+                                id="description"
+                                ref={textareaRef}
+                                value={state.description || ''}
+                                onChange={handleInputChange}
+                                required
+                                className={style.textarea}
+                                placeholder="Здесь можно добавить биографию или факты из жизни"
+                            />
+                            <label htmlFor="img_dedication">Добавьте фотографии человека</label>
+                            <label className={style.file_label} htmlFor="img_dedication">
                                 <div className={style.file_box}>
-                                    {state.fileName ? (
-                                        <div className={style.file_name}>
-                                            <span className={style.file_icon}>📷</span>
-                                            <span className={style.file_text}>{state.fileName}</span>
+                                    {state.img_previews && state.img_previews.length > 0 ? (
+                                        <div className={style.photo_list}>
+                                            {state.img_previews.map((preview, index) => (
+                                                <div key={index} className={style.photo_item}>
+                                                    <div className={style.photo_preview}>
+                                                        <img src={preview.url} alt={preview.name} className={style.photo_thumbnail} />
+                                                        <span className={style.photo_name}>{preview.name}</span>
+                                                    </div>
+                                                    <button 
+                                                        type="button" 
+                                                        className={style.remove_photo_btn}
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            handleRemovePhoto(index);
+                                                        }}
+                                                    >
+                                                        ✕
+                                                    </button>
+                                                </div>
+                                            ))}
                                         </div>
                                     ) : (
-                                        <span className={style.file_plus}>+</span>
+                                        <div className={style.upload_prompt}>
+                                            <span className={style.file_plus}>+</span>
+                                            <span className={style.upload_text}>Нажмите, чтобы загрузить фотографии</span>
+                                        </div>
                                     )}
                                 </div>
-                                <input type="file" id="add_img" onChange={handleInputChange} className={style.file_input} accept="image/*,.svg" />
                             </label>
-                            <div className={style.file_hint}>
-                                {state.file ? 'Фото загружено' : 'Добавьте файлы формата *.png, *.jpeg, *.jpg, *.svg, *.gif, *.webp'}
-                            </div>
+                            <input type="file" id="img_dedication" onChange={handleInputChange} className={style.file_input} accept="image/*,.svg" multiple />
                         </div>
                     </div>
                     {state.Error && <div className={style.error}>{state.Error}</div>}
                     <div className={style.form_footer}>
                         <button type="submit" className={style.submit_btn}>Оплатить и отправить заявку</button>
                     </div>
-                </form>
-            </section>
-
+                </section>
+            </form>
             {/* Модальные окна */}
             <ModalRegKedr isOpen={state.showModal} onClose={handleOverlayClick} contentClass={style.modalContent}>
                 <p>Вы уверены, что хотите посадить кедр на этом месте?</p>

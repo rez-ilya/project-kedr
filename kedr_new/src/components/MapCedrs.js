@@ -92,7 +92,7 @@ const MapCedars = ({ onMapClick, selectedCoords }) => {
         <Marker
           key={cedar.id}
           position={[cedar.latitude, cedar.longitude]}
-          icon={cedar.owner.id === currentUserId ? userTreeIcon : defaultTreeIcon}
+          icon={cedar.owner === currentUserId ? userTreeIcon : defaultTreeIcon}
         >
           <Popup closeButton={false}>
             <CustomPopupContent cedar={cedar} style={style} />

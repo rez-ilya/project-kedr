@@ -14,6 +14,7 @@ import MapCedars from './components/MapCedrs';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RegisterKedrPage from './pages/RegisterKedrPage';
 import MyCedarsPage from './pages/MyCedarsPage';
+import ResetPasswordForm from './components/Forms/ResetPasswordForm';
 
 function HomePage() {
   const [ShowPopUpAuth, setShowPopUpAuth] = useState(false);
@@ -23,9 +24,31 @@ function HomePage() {
   const [ShowSendRequest, setShowSendRequest] = useState(false);
 
   const getFormComponent = () => {
-    return authForm === "login"
-      ? <LogForm switchToRegister={() => setAuthForm("register")} />
-      : <RegForm switchToLogin={() => setAuthForm("login")}/>
+    switch (authForm) {
+      case "login":
+        return <LogForm 
+          switchToRegister={() => setAuthForm("register")} 
+          onResetPassword={() => setAuthForm("resetPassword")}
+        />;
+      case "register":
+        return <RegForm switchToLogin={() => setAuthForm("login")}/>;
+      case "resetPassword":
+        return <ResetPasswordForm onClose={() => setAuthForm("login")}/>;
+      default:
+        return null;
+    }
+  };
+
+  const getContentClass = () => {
+    switch (authForm) {
+      case "login":
+      case "register":
+        return "LogPopUp";
+      case "resetPassword":
+        return "resetPassword";
+      default:
+        return "LogPopUp";
+    }
   };
 
   const handleCloseAuthPopUp = () => {
@@ -43,7 +66,7 @@ function HomePage() {
         {ShowPopUpAuth && <PopUp 
           obj={getFormComponent}
           closePopUp={handleCloseAuthPopUp}
-          contentClass="LogPopUp"
+          contentClass={getContentClass()}
         />}
         {ShowPopUpImmortal && <PopUp
           obj={unDeathForm}

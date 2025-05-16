@@ -98,6 +98,8 @@
 
 /* Секции шагов */
 .step_section {
+    margin-top: 7vh;
+    margin-bottom: 7vh;
     max-width: 100vw;
     min-height: max-content;
     max-height: 100vh;
@@ -106,14 +108,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-}
-
-.step_section:nth-child(3){
-    margin-top: 10vh;
-}
-.step_section:nth-child(4) {    
-    margin-top: 10vh;
-    margin-bottom: 10vh;
 }
 
 .step_title_block {
@@ -151,32 +145,54 @@
 
 /* Форма */
 .reg_kedr_form {
-    width: 80vw;
+    width: 100%;
     margin-top: 32px;
     background: none;
     box-shadow: none;
     padding: 0;
 }
 .form_grid {
+    width: 80vw;
     display: flex;
     flex-direction: row;
-    gap: 48px;
+    gap: 120px;
 }
+
 .form_left {
-    flex: 1;
+    /* flex: 1; */
     display: flex;
     flex-direction: column;
+    width: 45%;
+    justify-content: space-between;
+}
+
+.input_group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     justify-content: flex-start;
 }
+
+.input_group:last-child > input {
+    width: 50%;
+    margin-bottom: 0;
+}
+
 .form_left label {
     font-size: 1.2rem;
     font-weight: 500;
     color: #222;
     margin-bottom: 8px;
+    width: 100%;
+    
 }
+
 .textarea {
+    width: 100%;
+    box-sizing: border-box;
     min-height: 140px;
-    max-height: 60vh;
+    max-height: 30vh;
     border: 2px solid #7ca04b;
     border-radius: 8px;
     padding: 16px;
@@ -185,14 +201,67 @@
     box-shadow: 0 6px 8px rgba(80, 100, 60, 0.27);
     resize: vertical;
 }
+
+.textarea::placeholder {
+    font-style: italic;
+    color: #b1b1b1;
+}
+
 .input {
+    width: 100%;
+    box-sizing: border-box;
     border: 2px solid #7ca04b;
     border-radius: 8px;
     padding: 8px 16px;
     font-size: 1.1rem;
     margin-bottom: 24px;
-    width: 220px;
     box-shadow: 0 6px 8px rgba(80, 100, 60, 0.27);
+}
+
+.input::placeholder,
+.input::-webkit-input-placeholder,
+.input::-moz-placeholder,
+.input:-ms-input-placeholder,
+.input::-ms-input-placeholder {
+    font-size: 16px !important;
+    color: #b1b1b1;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.input[type="date"] {
+    text-transform: uppercase;
+    font-style: italic;
+    font-weight: 400;
+    position: relative;
+    padding-right: 40px !important;
+}
+
+.input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    background: url('../../public/mynaui_calendar.svg') no-repeat center;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
+    filter: none;
+    opacity: 1;
+    display: block;
+    border-width: thin;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.input[type="date"]::-webkit-datetime-edit {
+    padding: 0;
+}
+
+.input[type="date"]:invalid {
+  color: #b1b1b1;
+}
+.input[type="date"]:valid {
+  color: #222;
 }
 
 .form_right {
@@ -204,15 +273,17 @@
 }
 .file_label {
     width: 100%;
-    margin-top: 32px;
+    margin-top: 13px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     cursor: pointer;
 }
 .file_box {
-    width: 320px;
-    height: 120px;
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 200px;
+    max-height: 200px; /* Фиксированная высота для 3 фотографий */
     border: 2px dashed #7ca04b;
     border-radius: 16px;
     display: flex;
@@ -222,7 +293,13 @@
     background: #fff;
     transition: border 0.2s;
     padding: 16px;
+    overflow: hidden;
 }
+
+.file_box:last-child {
+    margin-bottom: 0;
+}  
+
 .file_preview {
     width: 100%;
     height: 100%;
@@ -257,7 +334,6 @@
     font-size: 0.95rem;
     color: #444;
     text-align: center;
-    margin-bottom: 0;
 }
 
 .file_label:hover .file_box {
@@ -272,6 +348,7 @@
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 32px;
     margin-top: 32px;
 }
 .submit_btn {
@@ -299,7 +376,7 @@
     border: 1px solid #f5c6cb;
     padding: 1rem;
     border-radius: 8px;
-    margin: 1rem 0;
+    margin-top: 32px;
     font-size: 1rem;
     text-align: center;
 }
@@ -543,19 +620,167 @@
     }
 }
 
-/* Скрыть скроллбары для всей страницы и всех секций */
-html, body, .page_wrapper, .hero_section, .step_section {
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE 10+ */
+/* Стилизация скроллбара для всех элементов */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 0;
+    display: block;
 }
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-.page_wrapper::-webkit-scrollbar,
-.hero_section::-webkit-scrollbar,
-.step_section::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 3px;
 }
-body, html {
+
+::-webkit-scrollbar-thumb {
+    background: #7ca04b;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5e7d3a;
+}
+
+/* Стилизация скроллбара для списка фотографий */
+.photo_list::-webkit-scrollbar {
+    width: 3px; /* Тонкий скроллбар только для списка фотографий */
+    display: block;
+}
+
+.photo_list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 1.5px;
+}
+
+.photo_list::-webkit-scrollbar-thumb {
+    background: #7ca04b;
+    border-radius: 1.5px;
+}
+
+.photo_list::-webkit-scrollbar-thumb:hover {
+    background: #5e7d3a;
+}
+
+/* Стилизация скроллбара для модальных окон */
+.modalContent::-webkit-scrollbar {
+    width: 4px;
+    display: block;
+}
+
+.modalContent::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+    background: #7ca04b;
+    border-radius: 2px;
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+    background: #5e7d3a;
+}
+
+/* Стилизация скроллбара для карты */
+.map_block::-webkit-scrollbar {
+    width: 4px;
+    display: block;
+}
+
+.map_block::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 2px;
+}
+
+.map_block::-webkit-scrollbar-thumb {
+    background: #7ca04b;
+    border-radius: 2px;
+}
+
+.map_block::-webkit-scrollbar-thumb:hover {
+    background: #5e7d3a;
+}
+
+.upload_prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    color: #7ca04b;
+    height: 100%;
+    justify-content: center;
+}
+
+.upload_text {
+    font-size: 1rem;
+    text-align: center;
+}
+
+.photo_list {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     overflow-y: auto;
-    overflow-x: hidden;
+    padding-right: 8px;
+}
+
+.photo_item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: background-color 0.2s;
+    height: 50px; /* Фиксированная высота для каждой фотографии */
+    flex-shrink: 0; /* Запрещаем сжатие элементов */
+}
+
+.photo_item:hover {
+    background-color: #eeeeee;
+}
+
+.photo_preview {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex: 1;
+    min-width: 0;
+}
+
+.photo_thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.photo_name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: #333;
+}
+
+.remove_photo_btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    padding: 4px 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    margin-left: 8px;
+    flex-shrink: 0;
+}
+
+.remove_photo_btn:hover {
+    background-color: #ffeeee;
+    transform: scale(1.1);
 }
