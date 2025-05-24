@@ -100,7 +100,7 @@
   /* height: 40vh; */
   max-height: 60vh;
   background-repeat: no-repeat;
-  background-size: auto;
+  background-size: 20%;
   background-position: left bottom;
   z-index: -1;
   padding: 5%;
@@ -112,8 +112,8 @@
   position: absolute;
   right: 0;
   bottom: 0;
-  width: 99px;
-  height: 196px;
+  width: 12%;
+  height: 42%;
   background: url('../../../public/tree-icon2.png');
   background-repeat: no-repeat;
   background-size: contain;
@@ -133,22 +133,26 @@
 }
 
 .AlertPopUp{
-  font-size: 1.3rem;
   padding: 5%;
   max-width: 35%;
+  min-width: max-content;
   background-color: white;
   background-image: 
     url('../../../public/icon-trees.png'),
     url('../../../public/tree-reverse.png');
   background-repeat: no-repeat;
-  background-size: 100px, 50px;
+  background-size: 20%, 10%;
   background-position: left bottom, right bottom;
   min-height: 65px;
   z-index: 2001 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.AlertPopUp p {
+.AlertPopUpText{
   text-align: center;
+  font-size: min(40px, calc(10px + 16 * ((100vw - 320px) / 1024)));
 }
 
 .LogPopUp{
@@ -169,4 +173,26 @@
 
 .resetPassword .close {
   filter: brightness(0) invert(1);
+}
+
+@media (max-width: 610px) {
+  .content{
+    max-width: 375px;
+  }
+
+  .close{
+    width: 18px;
+  }
+} 
+
+@media (max-width: 500px) {
+  .content{
+    max-width: 320px;
+  }
+}
+
+@media (max-width: 426px) {
+  .AlertPopUp{
+    padding: 3%;
+  }
 }

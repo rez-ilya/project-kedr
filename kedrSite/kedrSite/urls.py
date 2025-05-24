@@ -19,18 +19,23 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 
 from django.conf import settings
+
+from kedrSite.views import UserConfirmEmailView
 from trees.views import TreesAPIList, TreesAPIDetails, TreesAPICoordinates, TreeAPICreate
 from users.views import CreateUserView
+from promocodes.views import PromocodeConfirmView
 
 urlpatterns = [
     path('admin/', admin.site.urls),#админка, логин admin пароль 1234
     path('api/v1/trees/',TreesAPIList.as_view(), name = 'trees'),#Список всех деревьев с их данными
-    path('api/v1/add_tree/',TreeAPICreate.as_view(), name = 'add tree'),#Список всех деревьев с их данными
+    path('api/v1/add_tree/',TreeAPICreate.as_view(), name = 'add tree'),#регистрация дерева
     path('api/v1/trees_coordinates/',TreesAPICoordinates.as_view(), name = 'trees coordinates'),#коорды все деревьев
     path('api/v1/trees/<int:pk>/',TreesAPIDetails.as_view(), name = 'tree'),#инфа об определенном 1 дереве
     path('api/v1/user/register/', CreateUserView.as_view(), name='register'),#регистрация пользователя
     path('api/v1/auth/', include('rest_framework.urls')),#+ login/ или  logout/  вход и выход из учетки
-    path('api/v1/djoser-auth/', include('djoser.urls')),#
+    path('api/v1/djoser-auth/', include('djoser.urls')), #'api/v1/djoser-auth/users/'
+    path('api/v1/activate/<str:uid>/<str:token>', UserConfirmEmailView.as_view()), #отправка письма с проверкой на почту
+    path('api/v1/promocodes/check/<str:promo>/', PromocodeConfirmView.as_view()), #проверка промокода
     re_path(r'^djoser-auth/', include('djoser.urls.authtoken')),#
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

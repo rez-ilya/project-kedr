@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import style from "../../css/logform.module.css";
 import ResetPasswordForm from "./ResetPasswordForm";
 import PopUp from "../PopUp/PopUp";
+import config from "../../config";
 
 const LogForm = ({ switchToRegister, onLogin, onResetPassword }) => {
   const [login, setLogin] = useState("");
@@ -39,7 +40,7 @@ const LogForm = ({ switchToRegister, onLogin, onResetPassword }) => {
 
     try {
       setIsLoading(true);
-      const response = await fetch("http://localhost:8000/djoser-auth/token/login", {
+      const response = await fetch(`${config}/djoser-auth/token/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import style from "../css/mapcedrs.module.css"
 import '../css/popup_leaflet.css';
 import CustomPopupContent from './PopUp/CustomPopupContent';
+import config from '../config';
 
 //Кастомные иконки деревьев:
 const defaultTreeIcon = new L.Icon({
@@ -45,7 +46,7 @@ const MapCedars = ({ onMapClick, selectedCoords }) => {
     // Получаем информацию о текущем пользователе
     const token = localStorage.getItem("token");
     if (token) {
-      fetch("http://localhost:8000/api/v1/djoser-auth/users/me/", {
+      fetch(`${config}/api/v1/djoser-auth/users/me/`, {
         headers: {
           "Authorization": `Token ${token}`,
         },
@@ -58,7 +59,7 @@ const MapCedars = ({ onMapClick, selectedCoords }) => {
     }
 
     // Получаем список кедров
-    fetch('http://localhost:8000/api/v1/trees/')
+    fetch(`${config}/api/v1/trees/`)
     .then(res => res.json())
     .then(data => {
       console.log('Данные с сервера:', data);

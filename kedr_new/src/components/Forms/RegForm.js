@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import style from "../../css/regform.module.css"
-
+import config from "../../config";
 const RegForm = (props) => {
     const [formData, setFormData] = useState({
         surname: "",
@@ -94,7 +94,7 @@ const RegForm = (props) => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/v1/user/register/', {
+            const response = await fetch(`${config}/api/v1/user/register/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -113,10 +113,9 @@ const RegForm = (props) => {
             try {
                 const data = JSON.parse(text);
                 if (response.ok) {
-                    setSuccess("Регистрация успешна!");
-                    setTimeout(() => {
-                        props.switchToLogin();
-                    }, 1000);
+                    setSuccess("Регистрация успешна! Проверьте email для подтверждения.");
+                    console.log('Ссылка для подтверждения (dev):', 
+                        `${window.location.origin}/confirm-registration/${data.uid}/${data.token}`);
                 } else {
                     setError('Ошибка регистрации: ' + (data.error || JSON.stringify(data)));
                 }

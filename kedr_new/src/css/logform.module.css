@@ -20,7 +20,7 @@
   
   .input {
     padding: 10px;
-    font-size: min(40px, calc(8px + 7 * ((100vw - 320px) / 1024)));
+    font-size: min(40px, calc(4px + 12 * ((100vw - 320px) / 1024)));
     border: 2px solid rgba(101, 140, 84, 1);
     border-radius: 12px;
     min-height: 26px;
@@ -28,6 +28,13 @@
 
   .input[id="login"]{
     margin-bottom: 3% !important;
+  }
+
+  .input::placeholder {
+    font-size: 16px !important;
+    color: #b1b1b1;
+    font-style: italic;
+    font-weight: 400;
   }
 
   .button_con{
@@ -105,4 +112,63 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@media (max-width: 1280px) {
+  .container{
+    padding: 7% 10%;
+  }
+
+  .input{
+    padding: 6px 10px;
+  }
+
+  .header > p{
+    margin: 0;
+  }
+
+  .button{
+    margin-top: 5%;
+  }
+  
+  .reg_button{
+    margin: 0;
+  }
+
+  .footer{
+    gap: 5px;
+  }
+}
+
+@media (max-width: 768px) {
+  .input{
+    font-size: 13px;
+  }
+  .header > p{
+    font-size: 15px;
+  }
+  .form > label{
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 426px) {
+  .form{
+    margin-top: 20px;
+  }
+
+  .header > p{
+    font-size: 13px;
+    }
+  .reg_button{
+    font-size: 10px;
+  }
+
+  .button{
+    padding: 7px 10px;
+  }
+
+  .input{
+    padding: 4px 10px;
+  }
 }

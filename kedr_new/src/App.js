@@ -15,6 +15,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RegisterKedrPage from './pages/RegisterKedrPage';
 import MyCedarsPage from './pages/MyCedarsPage';
 import ResetPasswordForm from './components/Forms/ResetPasswordForm';
+import ConfirmRegistration from './pages/ConfrimRegistration';
+// import MyProfilePage from './pages/MyProfilePage';
 
 function HomePage() {
   const [ShowPopUpAuth, setShowPopUpAuth] = useState(false);
@@ -106,6 +108,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/register-kedr" element={<RegisterKedrPage />} />
         <Route path="/my-cedars" element={<MyCedarsPage />} />
+        <Route path="/confirm-registration/:uid/:token" element={<ConfirmRegistration />} />
+        {/* <Route path="/my-profile" element={<MyProfilePage />} /> */}
       </Routes>
     </Router>
   );

@@ -103,17 +103,16 @@
 
 @media (max-width: 1250px){
     .container{
-        height: 56vw;
+        height: 47vw;
     }
 
     .LeftBlock{
-        margin-top: 20vw;
-        margin-bottom: 25.8vw;
+        margin-top: 15vw;
     }
     
     .CounterTrees{
         margin: 1.8vw 0;
-        padding-bottom: 3vw;
+        /* padding-bottom: 3vw; */
     }
 
     .RightBlock{
@@ -121,8 +120,8 @@
     }
     
     .RightBlock > div{
-        gap: 5.3vw;
-        margin-top: 16vw;
+        gap: 5vw;
+        margin-top: 12vw;
     }
 
     .title{
@@ -132,34 +131,105 @@
 
 }
 
-@media (max-width: 768px) {
-    .title {
-        margin-top: 7vw;
-        margin-bottom: 5vw;
-        max-width: 70vw;
-        font-size: 8vw;
+@media (max-width: 820px) {
+    .RightBlock > div{
+        margin-top: 11vw;
     }
-
-    .container {
-        margin: 0;
+    .title{
+        font-size: min(60px, calc(20px + 21 * ((100vw - 320px) / 1024)));
     }
-
-    .memoryOf {
-        margin: 4vw 0;
+    .LeftBlock{
+        width: 33%;
+        margin-left: 5vw;
+        border-radius: 35px;
     }
+    .CounterTrees{
+        padding-bottom: 1vw;
+        font-size: min(50px, calc(22px + 18 * ((100vw - 320px) / 1024)));
+    }
+    .CountReg{
+        font-size: min(40px, calc(12px + 18 * ((100vw - 320px) / 1024)));
+    }
+}
 
-    .LeftBlock {
-        margin-top: 3vw;
+@media (max-width: 640px) {
+    .LeftBlock{
+        border-radius: 25px;
+    }
+    .CounterTrees{
+        padding-bottom: 0.5vw;
+        font-size: min(50px, calc(20px + 18 * ((100vw - 320px) / 1024)));
+    }
+    .RightBlock > div{
+        gap: 3.2vw;
+    }
+    .title{
+        font-size: min(60px, calc(15px + 23 * ((100vw - 320px) / 1024)));
+    }
+    .button{
+        padding: 7px;
+        font-size: min(30px, calc(7px + 18 * ((100vw - 320px) / 1024)));
+    }
+    .memoryOf{
+        font-size: min(30px, calc(8px + 18 * ((100vw - 320px) / 1024)));
     }
 }
 
 @media (max-width: 480px) {
-    .button {
-        max-width: 80vw;
-        font-size: min(25px, calc(12px + 15 * ((100vw - 320px) / 1024)));
+    .CounterTrees {
+        font-size: min(50px, calc(16px + 20 * ((100vw - 320px) / 1024)));
+    }
+    .CountReg{
+        font-size: min(30px, calc(10px + 18 * ((100vw - 320px) / 1024)));
+    }
+    .LeftBlock{
+        border-radius: 20px;
+    }
+}
+
+@media (max-width: 426px) {
+    .container{
+        flex-direction: column-reverse;
+        height: 100%; /*временное решение*/
+        align-content: center;
+        align-items: center;
+    }
+    .RightBlock{
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        width: 80%;
+    }
+    .RightBlock > div {
+        margin: 0;
+        margin-top: 6vh;
+        width: 100%;
+    }
+    .LeftBlock{
+        margin: 0;
+        background-color: rgba(241, 242, 235, 0);
+        width: 70%;
+    }
+
+    .title{
+        font-size: min(60px, calc(24px + 30 * ((100vw - 320px) / 1024)));
+        font-weight: 300;
+    }
+
+    .button{
+        padding: 12px 30px;
+        font-size: min(30px, calc(12px + 20 * ((100vw - 320px) / 1024)));
+        width: max-content;
+    }
+
+    .memoryOf{
+        font-size: min(30px, calc(10px + 20 * ((100vw - 320px) / 1024)));
+        width: 70%;
     }
     
-    .CounterTrees {
-        font-size: min(50px, calc(18px + 20 * ((100vw - 320px) / 1024)));
+    .CountReg{
+        min-width: 80%;
+        font-size: min(30px, calc(11px + 20 * ((100vw - 320px) / 1024)));
+        text-align: center;
     }
 }

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import style from '../css/mycedarspage.module.css';
 import { useNavigate } from 'react-router-dom';
+import config from '../config';
 
 function MyCedarsPage() {
   const [currentUserId, setCurrentUserId] = useState(null);
@@ -9,7 +10,7 @@ function MyCedarsPage() {
   const navigate = useNavigate();
   useEffect(() => {
     // Получаем id пользователя
-    fetch('http://localhost:8000/api/v1/djoser-auth/users/me/', {
+    fetch(`${config}/api/v1/djoser-auth/users/me/`, {
       headers: { Authorization: `Token ${localStorage.getItem('token')}` }
     })
       .then(res => res.json())
@@ -18,7 +19,7 @@ function MyCedarsPage() {
 
   useEffect(() => {
     if (currentUserId) {
-      fetch('http://localhost:8000/api/v1/trees/', {
+      fetch(`${config}/api/v1/trees/`, {
         headers: { Authorization: `Token ${localStorage.getItem('token')}` }
       })
         .then(res => res.json())

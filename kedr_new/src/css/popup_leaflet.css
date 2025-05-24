@@ -32,3 +32,15 @@
   .leaflet-bottom.leaflet-right{
     display: none;
   }
+
+  @media (max-width: 426px) {
+    .leaflet-touch .leaflet-bar a {
+      width: 22px;
+      height: 20px;
+      line-height: 20px;
+    }
+
+    .leaflet-touch .leaflet-control-zoom-in{
+      font-size: 19px;
+    }
+  }

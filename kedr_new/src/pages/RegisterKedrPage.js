@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import style from "../css/regkedr.module.css";
 import MapCedars from "../components/MapCedrs";
 import ModalRegKedr from "../components/PopUp/ModalRegKedr";
-
+import config from "../config";
 const RegisterKedrPage = () => {
     const navigate = useNavigate();
     const textareaRef = useRef(null);
@@ -21,7 +21,10 @@ const RegisterKedrPage = () => {
         fileName: '',
         dedication: '',
         img_dedication: [],
-        img_previews: []
+        img_previews: [],
+        mainPhoto: null,
+        mainPhotoName: '',
+        dedicationPhotos: []
     });
 
     React.useEffect(() => {
@@ -42,7 +45,7 @@ const RegisterKedrPage = () => {
 
     const fetchUserInfo = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/djoser-auth/users/me/", {
+            const response = await fetch(`${config}/api/v1/djoser-auth/users/me/`, {
                 headers: {
                     "Authorization": `Token ${localStorage.getItem("token")}`,
                 },
@@ -88,30 +91,32 @@ const RegisterKedrPage = () => {
             if (file) {
                 setState(prev => ({ 
                     ...prev, 
-                    file: file,
-                    fileName: file.name
+                    mainPhoto: file,
+                    mainPhotoName: file.name
                 }));
             }
         } else if (id === "img_dedication") {
             const selectedFiles = Array.from(files);
             if (selectedFiles.length > 0) {
                 const maxFiles = 10;
-                const currentFiles = state.img_dedication || [];
+                const currentFiles = state.dedicationPhotos || [];
+                const currentPreviews = state.img_previews || [];
+
                 if (currentFiles.length + selectedFiles.length > maxFiles) {
                     alert(`Можно загрузить не более ${maxFiles} фотографий`);
                     return;
                 }
 
-                // Создаем превью для новых файлов
+                // Создаём превью для новых файлов
                 const newPreviews = selectedFiles.map(file => ({
                     url: URL.createObjectURL(file),
                     name: file.name
                 }));
 
-                setState(prev => ({ 
-                    ...prev, 
-                    img_dedication: [...(prev.img_dedication || []), ...selectedFiles],
-                    img_previews: [...(prev.img_previews || []), ...newPreviews]
+                setState(prev => ({
+                    ...prev,
+                    dedicationPhotos: [...currentFiles, ...selectedFiles],
+                    img_previews: [...currentPreviews, ...newPreviews]
                 }));
             }
         } else {
@@ -126,7 +131,7 @@ const RegisterKedrPage = () => {
             
             return {
                 ...prev,
-                img_dedication: prev.img_dedication.filter((_, index) => index !== indexToRemove),
+                dedicationPhotos: prev.dedicationPhotos.filter((_, index) => index !== indexToRemove),
                 img_previews: prev.img_previews.filter((_, index) => index !== indexToRemove)
             };
         });
@@ -134,8 +139,8 @@ const RegisterKedrPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
-        const { selectedCoords, description, file, promo } = state;
+        
+        const { selectedCoords, description, mainPhoto, dedicationPhotos, promo } = state;
         
         // Проверка обязательных полей
         if (!selectedCoords) {
@@ -148,16 +153,11 @@ const RegisterKedrPage = () => {
             return;
         }
 
-        // if (!promo) {
-        //     setState(prev => ({ ...prev, Error: "Пожалуйста, введите промокод" }));
-        //     return;
-        // }
-
-        // Проверка промокода
+        // Проверка промокода, если он указан
         if (promo) {
             try {
                 const token = localStorage.getItem("token");
-                const promoResponse = await fetch(`http://localhost:8000/api/v1/promocodes/check/${promo}/`, {
+                const promoResponse = await fetch(`${config}/api/v1/promocodes/check/${promo}/`, {
                     method: "GET",
                     headers: token
                         ? { "Authorization": `Token ${token}` }
@@ -176,22 +176,46 @@ const RegisterKedrPage = () => {
         }
 
         const formData = new FormData();
+        
+        // Добавляем все поля формы в соответствии с моделью
+        formData.append("title", state.title || 'Дерево');
         formData.append("content", description);
         formData.append("latitude", selectedCoords[0]);
         formData.append("longitude", selectedCoords[1]);
-        if (file) formData.append("picture", file);
-        formData.append("promo", promo);
-        formData.append("title", state.title || '');
-        formData.append("dedication", state.dedication || '');
-        if (state.img_dedication) {
-            state.img_dedication.forEach((file, index) => {
-                formData.append(`img_dedication_${index}`, file);
+        formData.append("plant_date", state.date || '');
+        formData.append("dedicated_to", state.dedication || '');
+        formData.append("promo", promo || '');
+        
+        // Добавляем титульную фотографию
+        if (mainPhoto) {
+            formData.append("picture", mainPhoto);
+        }
+
+        // Добавляем owner (id пользователя)
+        if (state.userInfo && state.userInfo.id) {
+            formData.append("owner", state.userInfo.id);
+        }
+
+        // Добавляем owner_name (ФИО пользователя)
+        if (state.userInfo) {
+            const fio = `${state.userInfo.last_name || ''} ${state.userInfo.first_name || ''} ${state.userInfo.surname || ''}`.trim();
+            formData.append("owner_name", fio);
+        }
+
+        // Для отладки
+        console.log('mainPhoto:', mainPhoto);
+        console.log('userInfo:', state.userInfo);
+        
+        // Добавляем фотографии посвящения
+        if (dedicationPhotos && dedicationPhotos.length > 0) {
+            dedicationPhotos.forEach((photo) => {
+                formData.append("images", photo);
             });
         }
 
         try {
             const token = localStorage.getItem("token");
-            const response = await fetch("http://localhost:8000/api/v1/trees/", {
+            const response = await fetch(`${config}/api/v1/add_tree/`, {
                 method: "POST",
                 body: formData,
                 headers: token
@@ -203,9 +227,11 @@ const RegisterKedrPage = () => {
                 setState(prev => ({ ...prev, showSuccessModal: true, Error: '' }));
             } else {
                 const data = await response.json();
+                console.error('Ошибка при отправке:', data);
                 setState(prev => ({ ...prev, Error: "Ошибка при отправке: " + JSON.stringify(data) }));
             }
         } catch (error) {
+            console.error('Ошибка сети:', error);
             setState(prev => ({ ...prev, Error: "Ошибка сети: " + error }));
         }
     };
@@ -273,10 +299,10 @@ const RegisterKedrPage = () => {
                                     }}/>
                                 <label className={style.file_label} htmlFor="add_img">
                                     <div className={style.file_box}>
-                                        {state.fileName ? (
+                                        {state.mainPhotoName ? (
                                             <div className={style.file_name}>
                                                 <span className={style.file_icon}>📷</span>
-                                                <span className={style.file_text}>{state.fileName}</span>
+                                                <span className={style.file_text}>{state.mainPhotoName}</span>
                                             </div>
                                         ) : (
                                             <span className={style.file_plus}>+</span>
@@ -285,7 +311,7 @@ const RegisterKedrPage = () => {
                                     <input type="file" id="add_img" onChange={handleInputChange} className={style.file_input} accept="image/*,.svg" />
                                 </label>
                                 <div className={style.file_hint}>
-                                    {state.file ? 'Фото загружено' : 'Добавьте файлы формата *.png, *.jpeg, *.jpg, *.svg, *.gif, *.webp'}
+                                    {state.mainPhoto ? 'Фото загружено' : 'Добавьте файлы формата *.png, *.jpeg, *.jpg, *.svg, *.gif, *.webp'}
                                 </div>
                             </div>
                         </div>

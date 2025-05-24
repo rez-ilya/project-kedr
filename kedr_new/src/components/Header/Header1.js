@@ -1,6 +1,9 @@
 import React from "react"
 import style from "./Header1.module.css"
-import { FiMenu } from "react-icons/fi";
+import { FiMenu, FiPhone, FiLogIn, FiLogOut } from "react-icons/fi";
+import { FiMail } from "react-icons/fi";
+import ModalRegKedr from "../PopUp/ModalRegKedr";
+import config from "../../config";
 
 class Header1 extends React.Component {
     constructor(props) {
@@ -8,8 +11,15 @@ class Header1 extends React.Component {
         this.state = {
             userInfo: null,
             showLogoutPopup: false,
+            showContactsPopup: false,
+            showExitPopup: false,
+            isBurgerActive: false,
+            showBurgerModal: false,
         };
         this.userContainerRef = React.createRef();
+        this.contactsButtonRef = React.createRef();
+        this.contactsPopupRef = React.createRef();
+        this.burgerModalRef = React.createRef();
     }
 
     componentDidMount() {
@@ -25,10 +35,10 @@ class Header1 extends React.Component {
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
-
+    
     fetchUserInfo = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/v1/djoser-auth/users/me/", {
+            const response = await fetch(`${config}/api/v1/djoser-auth/users/me/`, {
                 headers: {
                     "Authorization": `Token ${localStorage.getItem("token")}`,
                 },
@@ -50,13 +60,19 @@ class Header1 extends React.Component {
 
     handleLogout = () => {
         localStorage.removeItem("token");
-        this.setState({ userInfo: null, showLogoutPopup: false });
+        this.setState({ userInfo: null, showLogoutPopup: false, showExitPopup: false });
         window.location.reload();
     };
 
     toggleLogoutPopup = () => {
         this.setState(prevState => ({
             showLogoutPopup: !prevState.showLogoutPopup
+        }));
+    };
+
+    toggleContactsPopup = () => {
+        this.setState(prevState => ({
+            showContactsPopup: !prevState.showContactsPopup
         }));
     };
 
@@ -67,14 +83,56 @@ class Header1 extends React.Component {
         ) {
             this.setState({ showLogoutPopup: false });
         }
+        if (
+            this.contactsPopupRef.current &&
+            !this.contactsPopupRef.current.contains(event.target) &&
+            this.contactsButtonRef.current &&
+            !this.contactsButtonRef.current.contains(event.target)
+        ) {
+            this.setState({ showContactsPopup: false });
+        }
+    };
+
+    handleExitClick = () => {
+        this.setState(prevState => ({ showExitPopup: !prevState.showExitPopup }));
+    }
+
+    toggleMenu = () => {
+        this.setState(prevState => ({
+            isBurgerActive: !prevState.isBurgerActive,
+            showBurgerModal: !prevState.showBurgerModal,
+        }));
     };
 
     render() {
-        const { userInfo, showLogoutPopup } = this.state;
+        const { userInfo, showLogoutPopup, showContactsPopup, isBurgerActive, showBurgerModal } = this.state;
 
         return(
             <div className={style.header}>
                 <div>
+                <div style={{position: 'relative', display: 'inline-block'}}>
+                    <button
+                        type="button"
+                        className={style.button}
+                        onClick={this.toggleContactsPopup}
+                        ref={this.contactsButtonRef}
+                    >
+                        Контакты
+                    </button>
+                    {showContactsPopup && (
+                        <div className={style.contactsPopup} ref={this.contactsPopupRef}>
+                            <div className={style.contactsRow}>
+                                <FiPhone className={style.contactsIcon} />
+                                <span className={style.contactsPhone}>+7 952 152 40-04</span>
+                            </div>
+                            <div className={style.contactsDivider}></div>
+                            <div className={style.contactsRow}>
+                                <FiMail className={style.contactsIcon} />
+                                <span className={style.contactsMail}>Почта</span>
+                            </div>
+                        </div>
+                    )}
+                </div>
                 <button type="button"
                   className={style.button + (!userInfo ? ' ' + style.hiddenButton : '')}
                   onClick={userInfo ? () => window.location.href = '/my-cedars' : undefined}
@@ -82,7 +140,7 @@ class Header1 extends React.Component {
                     Мои кедры
                 </button>
                 <button type="button" 
-                className={style.button}
+                className={`${style.button_immortal} ${style.invisible}`}
                 onClick={this.props.openPopUpImmortal}>
                     Войти через портал "Бессмертный полк"
                 </button>
@@ -113,9 +171,46 @@ class Header1 extends React.Component {
                         Вход/Регистрация
                     </button>
                 )}
-                <FiMenu className={style.burger_button}
-                onClick={this.props.toggleMenu}/>
+                <FiMenu 
+                    className={`${style.burger_button} ${isBurgerActive ? style.burger_active : ''}`}
+                    onClick={this.toggleMenu}
+                />
+                {showBurgerModal && (
+                    <div className={style.burger_modal} ref={this.burgerModalRef}>
+                        <button 
+                            className={style.burger_modal_button}
+                            onClick={this.toggleContactsPopup}
+                            title="Контакты"
+                        >
+                            <FiPhone className={style.burger_modal_icon} />
+                        </button>
+                        {userInfo ? (
+                            <button 
+                                className={style.burger_modal_button}
+                                onClick={this.handleLogout}
+                                title="Выйти"
+                            >
+                                <FiLogOut className={style.burger_modal_icon} />
+                            </button>
+                        ) : (
+                            <button 
+                                className={style.burger_modal_button}
+                                onClick={this.props.openPopUpLog}
+                                title="Вход/Регистрация"
+                            >
+                                <FiLogIn className={style.burger_modal_icon} />
+                            </button>
+                        )}
+                    </div>
+                )}
                 </div>
+                <ModalRegKedr isOpen={this.state.showExitPopup} onClose={this.handleExitClick} contentClass={style.modalContent}>
+                <p>Вы уверены, что хотите выйти?</p>
+                <div className={style.modalButtons}>
+                    <button onClick={this.handleLogout}>Да</button>
+                    <button onClick={this.handleExitClick}>Отмена</button>
+                </div>
+                </ModalRegKedr>
             </div>
         )
     }

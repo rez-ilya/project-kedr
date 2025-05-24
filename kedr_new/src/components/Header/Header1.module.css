@@ -4,46 +4,52 @@
     position: fixed !important;
     top: 0;
     left: 50%;
-    height: 16vh;
+    height: 8vw;
     transform: translateX(-50%);
     width: 100%;
     z-index: 999 !important;
     max-width: 2000px;
     min-height: max-content;
+    align-items: center;
 }
 
 .header > div{
-    box-sizing: border-box; /* padding входит в ширину */
+    box-sizing: border-box;
     width: 100%;
+    max-width: -webkit-fill-available;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    gap: 2vw;
+    gap: 0.5vw;
     height: max-content;
-    padding: 5vh 6vh 3.5vh;
     position: absolute;
     align-items: center;
+    margin: 0 4vw;
 }
 
 .burger_button{
     position: absolute;
     top: 50%;
-    left: 2vw;
+    left: 4vw;
     transform: translateY(-50%);
     font-size: clamp(10px, 5.5vw, 40px); /* адаптивный размер */
     cursor: pointer;
     z-index: 1000;
     display: none;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.burger_button.burger_active {
+    transform: translateY(-50%) rotate(90deg);
 }
 
 .button {
-    /* display: flex;
-    align-items: center;
-    justify-content: center; */
     font-family: 'Merriweather';
-    height: 6.3vh;
+    height: min-content;
     font-size: min(40px, calc(5px + 13 * ((100vw - 320px) / 1024)));
-    width: 19.5vw;
+    padding: 12px;
+    width: 15vw;
     border: 0.26vw solid white;
     cursor: pointer;
     background-color: rgba(28, 28, 28, 0);
@@ -54,24 +60,18 @@
     transform: scale(1.05);
   }
 
-.button:nth-child(1){
-    margin-right: 2vw;
-    max-width: 355px;
-}
-
-.button:nth-child(2){
+.button_immortal {
     background-color: #F1F2EB;
-    margin-left: auto;
-    margin-right: 2vw;
-    width: 39vw;
     color: black;
     border: 0.13vw solid black;
-    display: none;
+    height: min-content;
+    font-size: min(40px, calc(5px + 13 * ((100vw - 320px) / 1024)));
+    padding: 16px;
 }
 
 .userContainer {
     position: relative;
-    display: inline-block;
+    display: flex;
 }
 
 .userInfo {
@@ -151,7 +151,114 @@
 .myCedarsButton:hover {
   background: #cde3b0;
 }
+.hiddenButton {
+  color: transparent !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  pointer-events: none !important;
+}
 
+.contactsPopup {
+    position: absolute;
+    top: 110%;
+    left: 0;
+    /* min-width: 240px; */
+    width: 20vw;
+    background: #F1F2EB;
+    border: 4px solid #6b8e47;
+    border-radius: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    z-index: 1000;
+    padding: 25px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    animation: slideDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: top;
+}
+
+.contactsRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Merriweather', serif;
+    font-size: min(40px, calc(9px + 13 * ((100vw - 320px) / 1024)));
+    color: #6b8e47;
+    font-weight: 500;
+}
+
+.contactsIcon {
+    font-size: min(40px, calc(8px + 16 * ((100vw - 320px) / 1024)));
+    color: #6b8e47;
+    flex-shrink: 0;
+}
+
+.contactsPhone,
+.contactsMail {
+    font-size: min(40px, calc(7px + 16 * ((100vw - 320px) / 1024)));
+    color: #6b8e47;
+    font-family: 'Merriweather', serif;
+}
+
+.contactsDivider {
+    width: 100%;
+    height: 0.1vw;
+    background: #222;
+    margin: 0;
+}
+
+.modalContent {
+    position: fixed !important;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    z-index: 1004 !important;
+    background-color: #f8f9f2;
+    border-radius: 16px;
+    border: 4px solid #7ca04b;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.modalButtons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 24px;
+}
+
+.modalButtons button {
+    padding: 0.8rem 2rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Merriweather';
+    font-size: 1rem;
+    font-weight: 700;
+    background: #7ca04b;
+    color: #fff;
+    transition: background 0.2s;
+}
+.modalButtons button:last-child {
+    background: #e0e0e0;
+    color: #333;
+}
+
+.modalButtons button:first-child:hover {
+    background: #5e7d3a;
+}
+
+.modalButtons button:last-child:hover {
+    background: #bcbcbc;
+
+}
+
+.invisible {
+    visibility: hidden !important;
+}
 /* @media (max-width: 1700px){
     .header{
         height: 12vw;
@@ -162,37 +269,165 @@
     }
 } */
 
-@media (max-width: 431px){
+
+
+@media (max-width: 1350px){
+    .header{
+        height: 10vw;
+    }
+
+    .button{
+        height: min-content;
+        font-size: min(40px, calc(9px + 13 * ((100vw - 320px) / 1024)));
+        padding: 12px;
+        min-width: 20vw;
+    }
+
+    .userInfo{
+        font-size: min(30px, calc(8px + 16 * ((100vw - 320px) / 1024)));
+    }
+
+    .header > div{
+        gap: 2vw;
+    }
+}
+
+@media (max-width: 940px) {
+    .button{
+        min-width: max-content;
+    }
+}
+
+@media (max-width: 900px) {
+    .contactsPopup{
+        padding: 2vw 2.5vw;
+        border: 3px solid #6b8e47;
+        gap: 1.5vw;
+    }
+    .logoutButton{
+        padding: 5px 10px;
+        font-size: 12px;
+    }
+
+    .logoutPopup{
+        padding: 5px 0;
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .button{
+        font-size: min(40px, calc(7px + 13 * ((100vw - 320px) / 1024)));
+        padding: 10px;
+    }
+}
+
+@media (max-width: 640px) {
+    .button{
+        padding: 5px;
+        font-size: min(40px, calc(7px + 12 * ((100vw - 320px) / 1024)));
+        min-width: 21vw;
+    }
+
+    .contactsMail, .contactsPhone{
+        font-size: min(30px, calc(6px + 16 * ((100vw - 320px) / 1024)));
+    }
+
+    .contactsPopup{
+        border: 2px solid #6b8e47;
+        border-radius: 13px;
+    }
+
+    .header > div{
+        gap: 2vw;
+    }
+}
+
+@media (max-width: 426px){
     .button{
         display: none !important;
     }
     .burger_button{
         display:block;
     }
-}
-
-@media (max-width: 1350px){
     .header{
-        height: 12vw;
+        background-color: #6F8B41;
     }
 
     .header > div{
-        padding: 3vw 6vw 1.5vw;
+        margin: 0;
+        margin-right: 3vw;
     }
 
-    .button{
-        height: 6.3vw;
-        font-size: min(40px, calc(9px + 13 * ((100vw - 320px) / 1024)));
-    }
-
-    .userInfo{
-        font-size: min(30px, calc(8px + 16 * ((100vw - 320px) / 1024)));
+    .contactsPopup{
+        border-radius: 10px;
+        width: 25vw;
+        top: 8vw;
+        left: 13.5vw;
     }
 }
 
-.hiddenButton {
-  color: transparent !important;
-  background: transparent !important;
-  border-color: transparent !important;
-  pointer-events: none !important;
+.burger_modal {
+    position: fixed;
+    top: 10vw;
+    left: 0;
+    width: 10vw;
+    height: 100vh;
+    background-color: #9FBC4E;
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 5px;
+    gap: 25px;
+    align-items: center;
+    transform: translateX(-100%);
+    animation: slideIn 0.3s ease-out forwards;
+    border-right: 2px solid #6b8e47;
 }
+
+/* Класс для анимации закрытия */
+.burger_modal.closing {
+    animation: slideOut 0.3s ease-out forwards;
+}
+
+/* Анимация появления */
+@keyframes slideIn {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Анимация закрытия */
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+.burger_modal_button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.burger_modal_icon {
+    font-size: clamp(10px, 5.5vw, 40px);
+    color: #F1F2EB;
+    transition: transform 0.2s;
+}
+
+.burger_modal_button:hover .burger_modal_icon {
+    transform: scale(1.2);
+}
+

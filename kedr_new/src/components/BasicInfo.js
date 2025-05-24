@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "../css/basicinfo.module.css"
 import ModalAlertPortal from "./PopUp/ModalAlertPortal";
+import config from "../config";
 
 const BasicInfo = () => {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ const BasicInfo = () => {
     const [showAuthInfo, setShowAuthInfo] = useState(false);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/v1/trees/')
+        fetch(`${config}/api/v1/trees/`)
             .then(res => res.json())
             .then(data => setCount(Array.isArray(data) ? data.length : 0))
             .catch(() => setCount(0));
@@ -48,7 +49,8 @@ const BasicInfo = () => {
             <main className={style.RightBlock}>
                 <div>
                     <p className={style.title}>
-                    Томск - столица кедра
+                    Томск - <br />
+                    столица кедра
                     </p>
                     <button type="submit" className={style.button}
                     onClick={handleRegisterCedar}>
@@ -64,9 +66,7 @@ const BasicInfo = () => {
                     onClose={() => setShowAuthInfo(false)}
                     contentClass="AlertPopUp"
                 >
-                    <div>
-                        <p>Сначала пройдите регистрацию на сайте</p>
-                    </div>
+                    Сначала пройдите регистрацию на сайте
                 </ModalAlertPortal>
             )}
         </div>

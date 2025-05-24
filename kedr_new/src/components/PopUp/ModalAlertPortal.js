@@ -16,7 +16,7 @@ const ModalAlertPortal = ({ children, onClose, contentClass }) => {
             onClick={onClose}
           />
         </header>
-        <main>{children}</main>
+        <main className={style.AlertPopUpText}>{children}</main>
       </div>
     </div>,
     document.body

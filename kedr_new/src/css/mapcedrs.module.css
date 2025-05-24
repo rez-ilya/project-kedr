@@ -35,6 +35,7 @@
     cursor: pointer;
     padding: 0;
     filter: brightness(0) saturate(100%);
+    z-index: 999;
 }
 .popup_close > img {
     width: 25px;
@@ -70,6 +71,7 @@
   color: #7BAA6B;
   font-weight: 700;
   font-family: 'Merriweather', serif;
+  margin-right: 8px;
 }
 .popup_registered,
 .popup_dedicated {
@@ -95,7 +97,7 @@
 .popup_main_flex {
   flex: 1 1 auto;
   min-height: 0;
-  max-height: 220px;
+  max-height: 250px;
   display: flex;
   gap: 32px;
 }
@@ -177,4 +179,126 @@
 .popup_full_width {
   flex: 1 1 100% !important;
   max-width: 100% !important;
+}
+
+/* --- Стили для галереи фото в попапе --- */
+.photo_gallery_block {
+  width: 260px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+}
+.photo_gallery_imgwrap {
+  width: 100%;
+  height: 260px;
+  background: #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo_gallery_img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 12px;
+  background: #e5e5e5;
+}
+.photo_gallery_nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 2px;
+}
+.photo_gallery_arrow {
+  background: none;
+  border: none;
+  color: #7BAA6B;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0 8px;
+  border-radius: 50%;
+  transition: background 0.15s;
+  line-height: 1;
+}
+.photo_gallery_arrow:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.photo_gallery_arrow:hover:not(:disabled) {
+  background: #eaf5e3;
+}
+.photo_gallery_counter {
+  font-size: 1.1rem;
+  color: #222;
+  min-width: 38px;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .custom_popup{
+    padding: 20px 30px;
+    min-width: 0px;
+    min-height: 0px;
+    min-width: 220px;
+    max-width: 260px;
+
+  }
+
+  .popup_footer{
+    font-size: 0.9rem;
+  }
+
+  .popup_main_flex{
+    gap: 14px;
+  }
+
+  /* .popup_left_desc{
+    max-width: 50%;
+  } */
+
+  .photo_gallery_imgwrap{
+    width: 90%;
+  }
+
+  .photo_gallery_nav{
+    gap: 6px;
+  }
+
+  .photo_gallery_arrow{
+    font-size: 1.5rem;
+  }
+
+  .popup_title{
+    font-size: 1.2rem;
+  }
+
+  .popup_registered, .popup_dedicated{
+    font-size: 0.9rem;
+  }
+
+  .popup_desc_label{
+    font-size: 0.9rem;
+  }
+  
+  .popup_desc{
+    font-size: 0.8rem;
+    padding-right: 0px;
+  }
+
+  .popup_footer{
+    font-size: 0.8rem;
+  }
+  
+  .popup_footer{
+    gap: 10px;
+  }
+
+  .photo_gallery_counter{
+    font-size: 0.9rem;
+  }
 }
