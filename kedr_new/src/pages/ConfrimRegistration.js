@@ -14,31 +14,66 @@ const ConfirmRegistration = () => {
       return;
     }
 
-    const confirmRegistration = async () => {
+    let timerId = null;
+
+    const processActivation = async () => {
       try {
         const response = await fetch(`${config}/api/v1/activate/${uid}/${token}/`, {
-          method: 'GET',
+          method: 'GET', 
           headers: {
             'Accept': 'application/json',
           }
         });
 
-        const data = await response.json();
-        
         if (response.ok) {
-          setMessage(data.detail || 'Регистрация успешно подтверждена!');
+          let successMsg = 'Регистрация успешно подтверждена!';
+          if (response.status !== 204) {
+            try {
+              const data = await response.json();
+              if (data && data.detail) {
+                successMsg = data.detail;
+              }
+            } catch (e) {
+              console.warn('Не удалось разобрать JSON из успешного ответа активации:', e);
+            }
+          }
+          setMessage(successMsg);
           setIsSuccess(true);
-          // Автоперенаправление через 3 секунды
-          setTimeout(() => navigate('/login'), 3000);
+          timerId = setTimeout(() => {
+            navigate('/', { state: { showLoginPopup: true } });
+          }, 3000);
         } else {
-          throw new Error(data.detail || 'Ошибка подтверждения');
+          let errorDetail = 'Ошибка подтверждения.';
+          try {
+            const errorData = await response.json();
+            if (errorData && typeof errorData === 'object') {
+                // Пытаемся извлечь сообщение из стандартных полей Djoser или других
+                errorDetail = errorData.detail || errorData.message || 
+                              (Array.isArray(errorData.uid) && errorData.uid.join(' ')) ||
+                              (Array.isArray(errorData.token) && errorData.token.join(' ')) ||
+                              Object.values(errorData).flat().join(' ') ||
+                              `Ошибка ${response.status}`;
+            } else {
+                 errorDetail = `Сервер вернул ошибку ${response.status}.`;
+            }
+          } catch (jsonError) {
+            const textResponse = await response.text();
+            errorDetail = textResponse || `Ошибка сервера (${response.status}). Попробуйте позже.`;
+          }
+          throw new Error(errorDetail);
         }
       } catch (error) {
-        setMessage(error.message);
+        setMessage(error.message || 'Произошла непредвиденная ошибка при подтверждении.');
+        setIsSuccess(false);
       }
     };
+    processActivation();
 
-    confirmRegistration();
+    return () => {
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    };
   }, [uid, token, navigate]);
 
   return (

@@ -32,7 +32,7 @@
     top: 50%;
     left: 4vw;
     transform: translateY(-50%);
-    font-size: clamp(10px, 5.5vw, 40px); /* адаптивный размер */
+    font-size: clamp(10px, 9.5vw, 40px); /* адаптивный размер */
     cursor: pointer;
     z-index: 1000;
     display: none;
@@ -331,6 +331,8 @@
 
     .contactsMail, .contactsPhone{
         font-size: min(30px, calc(6px + 16 * ((100vw - 320px) / 1024)));
+        white-space: nowrap;
+
     }
 
     .contactsPopup{
@@ -340,6 +342,10 @@
 
     .header > div{
         gap: 2vw;
+    }
+
+    .contactsDivider{
+        height: 0.2vw;
     }
 }
 
@@ -352,6 +358,7 @@
     }
     .header{
         background-color: #6F8B41;
+        height: 15vw;
     }
 
     .header > div{
@@ -361,24 +368,37 @@
 
     .contactsPopup{
         border-radius: 10px;
-        width: 25vw;
+        width: auto;
         top: 8vw;
         left: 13.5vw;
+        padding: 3vw 3.5vw;
+    }
+
+    .userInfo{
+        font-size: min(30px, calc(12px + 35 * ((100vw - 320px) / 1024)));
+    }
+
+    .contactsIcon{
+        font-size: min(40px, calc(16px + 25 * ((100vw - 320px) / 1024)));
+    }
+
+    .contactsPhone, .contactsMail{
+        font-size: min(30px, calc(13px + 24 * ((100vw - 320px) / 1024)));
     }
 }
 
 .burger_modal {
     position: fixed;
-    top: 10vw;
+    top: 15vw;
     left: 0;
-    width: 10vw;
+    width: 14vw;
     height: 100vh;
     background-color: #9FBC4E;
     z-index: 999;
     display: flex;
     flex-direction: column;
     padding: 20px 5px;
-    gap: 25px;
+    gap: 20px;
     align-items: center;
     transform: translateX(-100%);
     animation: slideIn 0.3s ease-out forwards;
@@ -422,12 +442,35 @@
 }
 
 .burger_modal_icon {
-    font-size: clamp(10px, 5.5vw, 40px);
+    font-size: clamp(10px, 7vw, 40px);
     color: #F1F2EB;
     transition: transform 0.2s;
 }
 
 .burger_modal_button:hover .burger_modal_icon {
+    transform: scale(1.2);
+}
+
+/* Добавляем стили для кнопки с иконкой кедра */
+.burger_cedar_button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.burger_cedar_icon {
+    width: 28px;
+    height: 46px;
+    transition: transform 0.2s;
+}
+
+.burger_cedar_button:hover .burger_cedar_icon {
     transform: scale(1.2);
 }
 

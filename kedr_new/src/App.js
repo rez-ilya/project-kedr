@@ -1,9 +1,8 @@
 import Header1 from "./components/Header/Header1"
 import Header2 from "./components/Header/Header2";
 import Footer from "./components/footer/footer"
-import React from "react";
 import style from "./css/main.module.css"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import PopUp from "./components/PopUp/PopUp";
 import BasicInfo from "./components/BasicInfo";
 import LogForm from "./components/Forms/LogForm";
@@ -11,12 +10,11 @@ import RegForm from "./components/Forms/RegForm";
 import unDeathForm from "./components/Forms/unDeathForm";
 import HelpInfo from "./components/HelpIfo";
 import MapCedars from './components/MapCedrs';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import RegisterKedrPage from './pages/RegisterKedrPage';
 import MyCedarsPage from './pages/MyCedarsPage';
 import ResetPasswordForm from './components/Forms/ResetPasswordForm';
 import ConfirmRegistration from './pages/ConfrimRegistration';
-// import MyProfilePage from './pages/MyProfilePage';
 
 function HomePage() {
   const [ShowPopUpAuth, setShowPopUpAuth] = useState(false);
@@ -24,6 +22,18 @@ function HomePage() {
   const [ShowPopUpHelp, setShowPopUpHelp] = useState(false);
   const [authForm, setAuthForm] = useState("login");
   const [ShowSendRequest, setShowSendRequest] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (location.state?.showLoginPopup) {
+      setShowPopUpAuth(true);
+      setAuthForm("login");
+      const { state, ...rest } = location;
+      const newState = { ...rest, state: { ...state, showLoginPopup: undefined } };
+      navigate(location.pathname, { state: newState.state, replace: true });
+    }
+  }, [location, navigate]);
 
   const getFormComponent = () => {
     switch (authForm) {
@@ -87,7 +97,7 @@ function HomePage() {
       <div className={style.main}>
         <Header2 />
         <div className={style.cont_map}>
-          <p className={style.title_map}>Карта зарегистрированных кедров</p>
+          <p className={style.title_map}>Карта зарегистрированных деревьев</p>
           <div className={style.block_map}><MapCedars /></div>
         </div>
       </div>
@@ -109,7 +119,6 @@ function App() {
         <Route path="/register-kedr" element={<RegisterKedrPage />} />
         <Route path="/my-cedars" element={<MyCedarsPage />} />
         <Route path="/confirm-registration/:uid/:token" element={<ConfirmRegistration />} />
-        {/* <Route path="/my-profile" element={<MyProfilePage />} /> */}
       </Routes>
     </Router>
   );

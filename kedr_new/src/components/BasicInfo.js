@@ -16,14 +16,14 @@ const BasicInfo = () => {
             .catch(() => setCount(0));
     }, []);
 
-    // Функция для склонения слова "кедр"
+    // Функция для склонения слова "дерево"
     function getCedarWord(n) {
         n = Math.abs(n) % 100;
         const n1 = n % 10;
-        if (n > 10 && n < 20) return "кедров";
-        if (n1 > 1 && n1 < 5) return "кедра";
-        if (n1 === 1) return "кедр";
-        return "кедров";
+        if (n > 10 && n < 20) return "деревьев";
+        if (n1 > 1 && n1 < 5) return "дерева";
+        if (n1 === 1) return "дерево";
+        return "деревьев";
     }
 
     const handleRegisterCedar = () => {

@@ -98,8 +98,8 @@
 
 /* Секции шагов */
 .step_section {
-    margin-top: 7vh;
-    margin-bottom: 7vh;
+    margin-top: 7vw;
+    margin-bottom: 7vw;
     max-width: 100vw;
     min-height: max-content;
     max-height: 100vh;
@@ -117,7 +117,7 @@
 }   
 
 .step_title {
-    font-size: 2rem;
+    font-size: min(34px, calc(17px + 20 * ((100vw - 320px) / 1024)));
     font-weight: 700;
     color: #222;
     margin-bottom: 32px;
@@ -155,7 +155,7 @@
     width: 80vw;
     display: flex;
     flex-direction: row;
-    gap: 120px;
+    gap: 6vw;
 }
 
 .form_left {
@@ -180,23 +180,28 @@
 }
 
 .form_left label {
-    font-size: 1.2rem;
+    font-size: min(22px, calc(9px + 18 * ((100vw - 320px) / 1024)));
     font-weight: 500;
     color: #222;
-    margin-bottom: 8px;
-    width: 100%;
-    
+    margin-bottom: 1vw;
+    width: 100%; 
+}
+
+.form_right label{
+    text-align: left;
+    margin-bottom: 1vw;
+    font-size: min(22px, calc(9px + 18 * ((100vw - 320px) / 1024)));
 }
 
 .textarea {
     width: 100%;
     box-sizing: border-box;
     min-height: 140px;
-    max-height: 30vh;
+    max-height: 140px;
     border: 2px solid #7ca04b;
     border-radius: 8px;
-    padding: 16px;
-    font-size: 1.1rem;
+    padding: 1vw;
+    font-size: min(22px, calc(7px + 10 * ((100vw - 320px) / 1024)));
     margin-bottom: 24px;
     box-shadow: 0 6px 8px rgba(80, 100, 60, 0.27);
     resize: vertical;
@@ -208,12 +213,13 @@
 }
 
 .input {
+    font-family: 'Merriweather';
     width: 100%;
     box-sizing: border-box;
     border: 2px solid #7ca04b;
     border-radius: 8px;
     padding: 8px 16px;
-    font-size: 1.1rem;
+    font-size: min(22px, calc(8px + 18 * ((100vw - 320px) / 1024)));
     margin-bottom: 24px;
     box-shadow: 0 6px 8px rgba(80, 100, 60, 0.27);
 }
@@ -268,28 +274,26 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: flex-start;
 }
 .file_label {
     width: 100%;
-    margin-top: 13px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     cursor: pointer;
 }
+
 .file_box {
     width: 100%;
     box-sizing: border-box;
-    min-height: 200px;
+    min-height: 170px;
     max-height: 200px; /* Фиксированная высота для 3 фотографий */
-    border: 2px dashed #7ca04b;
+    border: 3px dashed #7ca04b;
     border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 12px;
     background: #fff;
     transition: border 0.2s;
     padding: 16px;
@@ -331,7 +335,7 @@
     display: none;
 }
 .file_hint {
-    font-size: 0.95rem;
+    font-size: min(15px, calc(5px + 18 * ((100vw - 320px) / 1024)));
     color: #444;
     text-align: center;
 }
@@ -348,18 +352,17 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-bottom: 32px;
-    margin-top: 32px;
+    margin-top: 3vw;
 }
 .submit_btn {
     background: rgba(111, 139, 65, 1);
     color: #fff;
     font-family: 'Merriweather';
-    font-size: 1.2rem;
+    font-size: min(24px, calc(8px + 18 * ((100vw - 320px) / 1024)));
     font-weight: 700;
     border: none;
     border-radius: 24px;
-    padding: 16px 48px;
+    padding: 1.5vw 4vw;
     cursor: pointer;
     box-shadow: 0 2px 8px rgba(80, 100, 60, 0.07);
     transition: background 0.2s, transform 0.2s;
@@ -376,8 +379,8 @@
     border: 1px solid #f5c6cb;
     padding: 1rem;
     border-radius: 8px;
-    margin-top: 32px;
-    font-size: 1rem;
+    margin-top: 3vw;
+    font-size: min(14px, calc(5px + 18 * ((100vw - 320px) / 1024)));
     text-align: center;
 }
 
@@ -473,94 +476,12 @@
     transform: scale(1.05);
   }
 
-/* Адаптивность */
-@media (max-width: 1200px) {
-    .hero_content, .step_section {
-        flex-direction: column;
-        align-items: stretch;
-    }
-    .hero_img_block, .hero_text_block {
-        width: 100vw;
-        padding: 0;
-        margin: 0;
-    }
-    .hero_img {
-        width: 100vw;
-        margin: 0;
-        border-radius: 0;
-    }
-    .hero_text_block {
-        align-items: flex-start;
-        padding: 32px 24px 0 24px;
-    }
-    .hero_trees {
-        width: 120px;
-        height: 120px;
-    }
-    .map_block, .reg_kedr_form {
-        width: 96vw;
-        margin-left: 2vw;
-    }
-}
-@media (max-width: 900px) {
-    .form_grid {
-        flex-direction: column;
-        gap: 24px;
-    }
-    .file_box {
-        width: 100%;
-        min-width: 180px;
-        height: 100px;
-    }
-    .hero_text_overlay {
-        right: 4vw;
-        min-width: 220px;
-        max-width: 98vw;
-    }
-    .hero_title {
-        font-size: 1.3rem;
-        padding: 12px 8px;
-    }
-    .memory_label {
-        font-size: 1rem;
-        padding: 8px 16px;
-    }
-    .hero_trees {
-        width: 100px;
-        height: 100px;
-    }
-}
-@media (max-width: 600px) {
-    .hero_section, .step_section {
-        padding: 24px 0 0 0;
-    }
-    .hero_title {
-        font-size: 1.3rem;
-        padding: 12px 8px;
-    }
-    .step_title {
-        font-size: 1.2rem;
-        margin-left: 4vw;
-    }
-    .map_block, .reg_kedr_form {
-        width: 98vw;
-        margin-left: 1vw;
-    }
-    .form_footer {
-        margin-top: 16px;
-    }
-    .submit_btn {
-        font-size: 1rem;
-        padding: 12px 8px;
-    }
-}
-
 .fixed_header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
-    height: 15vh;
+    height: 8vw;
     background: rgba(159, 188, 78, 1);
     z-index: 1001;
     display: flex;
@@ -573,13 +494,13 @@
     font-family: 'Merriweather';
     position: static;
     color: #fff;
-    font-size: 1.2rem;
+    font-size: min(40px, calc(8px + 16 * ((100vw - 320px) / 1024)));
     background: none;
     border: none;
     cursor: pointer;
     display: flex;
     align-items: center;
-    padding: 40px;
+    padding: 4vw;
 }
 
 .backArrow {
@@ -589,7 +510,6 @@
   }
 
 .backText {
-  font-size: 20px;
   font-weight: 600;
   cursor: pointer;
 }
@@ -600,24 +520,11 @@
 
 .user_name {
     color: #fff;
-    font-size: min(40px, calc(5px + 13 * ((100vw - 320px) / 1024)));
+    font-size: min(40px, calc(8px + 16 * ((100vw - 320px) / 1024)));
     font-weight: 400;
     text-align: right;
-    padding: 40px;
+    padding: 4vw;
     margin: 0;
-}
-
-@media (max-width: 600px) {
-    .fixed_header, .header_spacer {
-        height: 48px;
-        padding: 0 12px;
-    }
-    .fixed_header .user_name {
-        font-size: 0.95rem;
-    }
-    .fixed_header .back_btn {
-        font-size: 0.95rem;
-    }
 }
 
 /* Стилизация скроллбара для всех элементов */
@@ -711,11 +618,6 @@
     justify-content: center;
 }
 
-.upload_text {
-    font-size: 1rem;
-    text-align: center;
-}
-
 .photo_list {
     width: 100%;
     height: 100%;
@@ -783,4 +685,158 @@
 .remove_photo_btn:hover {
     background-color: #ffeeee;
     transform: scale(1.1);
+}
+
+@media (max-width: 1025px){
+    .fixed_header{
+        height: 10vw;
+    }
+    
+  .backArrow{
+    font-size: min(40px, calc(19px + 20 * ((100vw - 320px) / 1024)));
+    margin: 0 1vw 4px 1vw;
+  }
+
+  .hero_trees{
+    right: -66px;
+    bottom: -41px;
+  }
+}
+
+@media(max-width: 768px) {
+    .modalContent{
+        max-width: 300px;;
+    }
+
+    .user_name{
+       font-size: min(40px, calc(10px + 16 * ((100vw - 320px) / 1024)));
+    }
+    .fixed_header{
+        height: 12vw;
+    }
+
+    .form_grid{
+        flex-direction: column;
+        gap: 3vw;
+    }
+
+    .form_left{
+        width: 75%;
+    }
+
+    .form_right{
+        width: 75%;
+        margin-bottom: 3vw;
+    }
+
+    .hero_overlay{
+        width: 65%;
+        height: 73%;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero_trees{
+        display: none;
+    }
+
+    .hero_text_overlay{
+        gap: 36vh;
+    }
+
+    .hero_section:first-child{
+        justify-content: left;
+    }
+
+    .hero_overlay{
+        background-position: left bottom;
+        left: 0;
+        bottom: 0;
+        height: 60%;
+        width: 77%;
+    }
+
+    .hero_title{
+        margin-right: 9vw;
+        padding: 3vw 5vw;
+    }
+
+    .hero_title_block{
+        width: auto;
+    }
+
+    .memory_label{
+        border-top-left-radius: 40px;
+        border-bottom-left-radius: 40px;
+        padding: 3.5vw 4vw;
+        font-size: min(43px, calc(16px + 11 * ((100vw - 320px) / 1024)));
+        width: 70vw;
+        text-align: center;
+    }
+}
+
+@media (max-width: 426px) {
+    .fixed_header{
+        height: 15vw;
+    }
+
+    .backArrow{
+    font-size: 7vw;
+    margin: 0 1vw 4px 3vw;
+  }
+
+  .file_hint{
+    font-size: min(15px, calc(8px + 18 * ((100vw - 320px) / 1024)));
+  }
+
+  .backText{
+    display: none;
+  }
+
+  .hero_section{
+    min-height: 122vw;
+  }
+
+  .hero_text_overlay{
+    gap: 45vw;
+  }
+
+    .memory_label{
+    width: 75vw;
+    padding: 4.5vw 5vw;
+    font-size: min(43px, calc(13px + 14 * ((100vw - 320px) / 1024)));
+  }
+
+  .textarea{
+    padding: 2vw;
+    font-size: min(22px, calc(11px + 10 * ((100vw - 320px) / 1024)));
+    font-family: "Merriweather"
+  }
+
+  .modalContent > p{
+    font-size: min(30px, calc(11px + 18 * ((100vw - 320px) / 1024)));
+  }
+
+  .modalContent{
+    max-width: 230px;
+  }
+
+  .modalButtons > button{
+    font-size: 0.7rem;
+    padding: 0.7rem 1.4rem;
+  }
+
+  .step_title{
+    margin-bottom: 3vw;
+  }
+
+  .form_left label{
+    font-size: min(22px, calc(12.5px + 20 * ((100vw - 320px) / 1024)));
+  }
+
+  .form_right > label{
+    font-size: min(22px, calc(12.5px + 20 * ((100vw - 320px) / 1024)));
+  }
+
+
 }

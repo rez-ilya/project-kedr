@@ -94,7 +94,7 @@ const RegForm = (props) => {
         }
 
         try {
-            const response = await fetch(`${config}/api/v1/user/register/`, {
+            const response = await fetch(`${config}/api/v1/djoser-auth/users/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -129,11 +129,6 @@ const RegForm = (props) => {
 
     return (
         <div className={style.container}>
-            {/* <header className={style.header}>
-                <button className={style.backButton} onClick={props.switchToLogin}>
-                    ← Назад
-                </button>
-            </header> */}
             <form className={style.form} onSubmit={handleSubmit}>
                 <header className={style.title}>Регистрация</header>
                 

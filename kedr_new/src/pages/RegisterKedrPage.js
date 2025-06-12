@@ -86,7 +86,7 @@ const RegisterKedrPage = () => {
             textareaRef.current.style.height = "auto";
             textareaRef.current.style.height = textareaRef.current.scrollHeight + "px";
         }
-        if (id === "add_img") {
+        if (id === "mainPhoto") {
             const file = files[0];
             if (file) {
                 setState(prev => ({ 
@@ -297,7 +297,8 @@ const RegisterKedrPage = () => {
                                     color: state.date ? '#000' : '#b1b1b1',
                                     WebkitTextFillColor: state.date ? '#000' : '#b1b1b1'
                                     }}/>
-                                <label className={style.file_label} htmlFor="add_img">
+                                <label htmlFor="mainPhoto">Добавьте главную фотографию:</label>
+                                <label className={style.file_label} htmlFor="mainPhoto">
                                     <div className={style.file_box}>
                                         {state.mainPhotoName ? (
                                             <div className={style.file_name}>
@@ -308,7 +309,7 @@ const RegisterKedrPage = () => {
                                             <span className={style.file_plus}>+</span>
                                         )}
                                     </div>
-                                    <input type="file" id="add_img" onChange={handleInputChange} className={style.file_input} accept="image/*,.svg" />
+                                    <input type="file" id="mainPhoto" onChange={handleInputChange} className={style.file_input} accept="image/*,.svg" />
                                 </label>
                                 <div className={style.file_hint}>
                                     {state.mainPhoto ? 'Фото загружено' : 'Добавьте файлы формата *.png, *.jpeg, *.jpg, *.svg, *.gif, *.webp'}
@@ -375,11 +376,13 @@ const RegisterKedrPage = () => {
                                     ) : (
                                         <div className={style.upload_prompt}>
                                             <span className={style.file_plus}>+</span>
-                                            <span className={style.upload_text}>Нажмите, чтобы загрузить фотографии</span>
                                         </div>
                                     )}
                                 </div>
                             </label>
+                            <div className={style.file_hint}>
+                                Добавьте файлы формата *.png, *.jpeg, *.jpg, *.svg, *.gif, *.webp'
+                            </div>
                             <input type="file" id="img_dedication" onChange={handleInputChange} className={style.file_input} accept="image/*,.svg" multiple />
                         </div>
                     </div>

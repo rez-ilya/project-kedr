@@ -4,6 +4,7 @@ import { FiMenu, FiPhone, FiLogIn, FiLogOut } from "react-icons/fi";
 import { FiMail } from "react-icons/fi";
 import ModalRegKedr from "../PopUp/ModalRegKedr";
 import config from "../../config";
+import MyCedarIcon from "./MyCedar_mob_button.svg";
 
 class Header1 extends React.Component {
     constructor(props) {
@@ -184,6 +185,22 @@ class Header1 extends React.Component {
                         >
                             <FiPhone className={style.burger_modal_icon} />
                         </button>
+                        {userInfo && (
+                            <button 
+                                className={style.burger_cedar_button}
+                                onClick={() => {
+                                    window.location.href = '/my-cedars';
+                                    this.toggleMenu();
+                                }}
+                                title="Мои кедры"
+                            >
+                                <img 
+                                    src={MyCedarIcon} 
+                                    alt="Мои кедры" 
+                                    className={style.burger_cedar_icon}
+                                />
+                            </button>
+                        )}
                         {userInfo ? (
                             <button 
                                 className={style.burger_modal_button}

@@ -24,6 +24,7 @@
     border: 2px solid rgba(101, 140, 84, 1);
     border-radius: 12px;
     min-height: 26px;
+    font-family: "Merriweather";
   }
 
   .input[id="login"]{
@@ -55,6 +56,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.2s;
+    color: black;
   }
   
   .button:hover {
@@ -83,7 +85,7 @@
 
   .error {
     color: #ff0000;
-    font-size: min(40px, calc(4px + 9 * ((100vw - 320px) / 1024)));
+    font-size: min(40px, calc(8px + 7 * ((100vw - 320px) / 1024)));
     margin: 5px 0;
     padding: 5px 10px;
     background-color: rgba(255, 0, 0, 0.1);
@@ -94,7 +96,7 @@
 
   .success {
     color: rgba(101, 140, 84, 1);
-    font-size: min(40px, calc(4px + 9 * ((100vw - 320px) / 1024)));
+    font-size: min(40px, calc(8px + 7 * ((100vw - 320px) / 1024)));
     margin: 5px 0;
     padding: 5px 10px;
     background-color: rgba(101, 140, 84, 0.1);
@@ -166,9 +168,11 @@
 
   .button{
     padding: 7px 10px;
+    border: 1.5px solid rgba(101, 140, 84, 1);
   }
 
   .input{
     padding: 4px 10px;
+    border: 1px solid rgba(101, 140, 84, 1);
   }
 }

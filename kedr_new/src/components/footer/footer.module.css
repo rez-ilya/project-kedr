@@ -103,13 +103,32 @@
     height: 100%;
     overflow: hidden;
     position: relative;
+        overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+        to right, 
+        transparent, 
+        black 20%, 
+        black 80%, 
+        transparent
+    );
+    mask-image: linear-gradient(
+        to right, 
+        transparent, 
+        black 20%, 
+        black 80%, 
+        transparent
+    );
   }
 
   .marqueeContent {
     display: flex;
     align-items: center;
     height: 100%;
-    /* animation: marquee 20s linear infinite; */
+    width: max-content;
+    will-change: transform;
+    backface-visibility: hidden; /* Фикс для Safari */
+    transform-style: preserve-3d; /* Фикс для Safari */
+    animation: marqueeAnimation 25s linear infinite; /* Длительность можно настроить */
   }
 
   .partnerLogo {
@@ -119,16 +138,15 @@
     filter: grayscale(0.2);
     transition: filter 0.3s;
     background: none;
+    flex-shrink: 0;
   }
 
-  /* .partnerLogo:hover {
-    filter: grayscale(0) drop-shadow(0 2px 8px #b6e2b6);
-  } */
+/* Анимация для мобильных */
 
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+@keyframes marqueeAnimation { /* Используем это имя анимации */
+    0% { transform: translateX(0) translateZ(0); } /* Добавлен translateZ(0) для лучшей производительности в Safari */
+    100% { transform: translateX(-50%) translateZ(0); } /* -50% корректно для удвоенного контента */
+}
 
   .greenLine {
     width: 100%;
@@ -136,10 +154,19 @@
     background-color: rgba(101, 140, 84, 1);
   }
 
+  /* Оптимизация для Safari */
+@supports (-webkit-touch-callout: none) {
+    .marqueeContent { /* Применение translateZ(0) для улучшения производительности анимации в Safari */
+        transform: translateZ(0);
+    }
+}
+
   @media (max-width: 426px) {
     .header{
       margin-top: 5vw;
-      margin-bottom: 3vw;
+      margin-bottom: 4vw;
+      font-weight: 600;
+      font-size: min(30px, calc(14px + 50 * ((100vw - 320px) / 1024)));
     }
 
     .dividerBar{
@@ -147,5 +174,9 @@
     }
     .greenLine{
       height: 10vh;
+  }
+
+  .partnerLogo{
+    margin: 0 18px;
   }
 }

@@ -39,7 +39,7 @@
     .header{
         flex-direction: column;
         height: 100%;
-        min-height: 150px;
+        min-height: 40vw;
         align-items: flex-start;
     }
 
@@ -56,22 +56,27 @@
       }
 
     .title{
-        margin-top: 15px;
+        margin: 6vw  0 0 6vw;
         max-width: 100%;
+        font-size: min(30px, calc(14px + 50 * ((100vw - 320px) / 1024)));
+        padding: 0;
     }
     .text{
         background-color: rgba(241, 242, 235, 0.73);
-        border-radius: 20px;
-        margin: auto;
+        border-radius: 13px;
+        margin: 5vw auto;
         color: rgba(0, 0, 0, 1);
         font-weight: 500;
-        padding: 10px 15px;
+        padding: 5vw 9vw;
         min-height: 0;
+        min-width: 50vw;
+
     }
 
     .text > p{
-        font-size: min(30px, calc(10px + 20 * ((100vw - 320px) / 1024)));
+        font-size: min(30px, calc(12px + 50 * ((100vw - 320px) / 1024)));
         margin: 0;
         padding: 0;
+        text-align: left;
     }
 }

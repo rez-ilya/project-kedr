@@ -72,10 +72,6 @@
   }
 }
 
-/* .content::-webkit-scrollbar {
-  display: none;               /* Chrome, Safari, Opera 
-} */
-
 .close {
   width: 35px;
   cursor: pointer;
@@ -183,6 +179,10 @@
   .close{
     width: 18px;
   }
+
+  .resetPassword{
+    padding: 30px;
+  }
 } 
 
 @media (max-width: 500px) {
@@ -194,5 +194,24 @@
 @media (max-width: 426px) {
   .AlertPopUp{
     padding: 3%;
+  }
+
+  .resetPassword{
+    padding: 38px 17px 26px;
+    max-width: 260px !important;
+  }
+  /* .content{
+    max-width: 237px;
+  } */
+}
+
+@media (max-width: 380px) {
+  .content{
+    max-width: 270px;
+  }
+
+  .header{
+    top: 13px;
+    right: 13px;
   }
 }

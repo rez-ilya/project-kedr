@@ -92,13 +92,14 @@
 .button{
     font-family: 'Merriweather';
     padding: 2.7vh;
-    border: 0.13vw solid black;
+    border: 0.2vw solid black;
     width: 100%;
     max-width: 690px;
     background-color: rgba(28, 28, 28, 0);
     cursor: pointer;
     align-items: center;
     font-size: min(30px, calc(10px + 18 * ((100vw - 320px) / 1024)));
+    color: black;
 }
 
 @media (max-width: 1250px){
@@ -188,48 +189,63 @@
 }
 
 @media (max-width: 426px) {
+
     .container{
         flex-direction: column-reverse;
-        height: 100%; /*временное решение*/
+        height: 100%;
         align-content: center;
         align-items: center;
+        justify-content: flex-end;
+        margin: 15vw 0;
     }
     .RightBlock{
         margin: 0;
         display: flex;
         justify-content: center;
-        width: 80%;
+        width: 100%;
     }
     .RightBlock > div {
         margin: 0;
-        margin-top: 6vh;
-        width: 100%;
+        /* margin-top: 6vh; */
+        width: 78%;
+        gap: 8vw;
     }
     .LeftBlock{
         margin: 0;
         background-color: rgba(241, 242, 235, 0);
-        width: 70%;
+        width: 79%;
+        margin-top: 10vw;
+        gap: 5vw;
     }
 
     .title{
-        font-size: min(60px, calc(24px + 30 * ((100vw - 320px) / 1024)));
-        font-weight: 300;
+        font-size: min(60px, calc(29px + 95 * ((100vw - 320px) / 1024)));
+        font-weight: 400;
     }
 
     .button{
-        padding: 12px 30px;
-        font-size: min(30px, calc(12px + 20 * ((100vw - 320px) / 1024)));
-        width: max-content;
+        font-size: min(30px, calc(12px + 35 * ((100vw - 320px) / 1024)));
+        width: 100%;
+        padding: 4vw 0;
     }
 
     .memoryOf{
-        font-size: min(30px, calc(10px + 20 * ((100vw - 320px) / 1024)));
-        width: 70%;
+        font-size: min(30px, calc(12px + 35 * ((100vw - 320px) / 1024)));
+        width: 100%;
     }
     
     .CountReg{
-        min-width: 80%;
-        font-size: min(30px, calc(11px + 20 * ((100vw - 320px) / 1024)));
+        width: 100%;
+        font-size: min(30px, calc(16px + 50 * ((100vw - 320px) / 1024)));
         text-align: center;
+        max-width: 100%;
+        font-weight: 300;
+        margin: 0;
+    }
+
+    .CounterTrees{
+        font-size: min(30px, calc(18px + 50 * ((100vw - 320px) / 1024)));
+        margin: 0;
+        font-weight: 600;
     }
 }
